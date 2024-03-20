@@ -25,6 +25,8 @@ const AuthScreens = () => {
       <Tab.Screen name="Wishlist" component={WishlistScreen} />
       <Tab.Screen name="Cart" component={CartScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
+
+     
     </Tab.Navigator>
   );
 };
@@ -39,6 +41,7 @@ const UnAuthScreen = () => {
 
 const Navigate = () => {
   const nameCtx = useContext(NameContext);
+  nameCtx.getStoreData("name");
 
   return (
     <NavigationContainer>
@@ -46,6 +49,8 @@ const Navigate = () => {
     </NavigationContainer>
   );
 };
+
+
 
 export default App = () => {
   return (
