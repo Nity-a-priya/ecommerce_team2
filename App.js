@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {View, StatusBar, SafeAreaView} from 'react-native';
+import {StatusBar, SafeAreaView, useColorScheme} from 'react-native';
 
 import Login from './src/screens/Login';
 import HomeScreen from './src/screens/HomeScreen';
@@ -7,13 +7,18 @@ import WishlistScreen from './src/screens/WishlistScreen';
 import CartScreen from './src/screens/CartScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import NameContextProvider from './src/Utils/name-context';
 import {NameContext} from './src/Utils/name-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ThemeContextProvider from './src/Utils/theme-context';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -72,9 +77,10 @@ const UnAuthScreen = () => {
 const Navigate = () => {
   const nameCtx = useContext(NameContext);
   nameCtx.getStoreData('name');
+  const scheme = useColorScheme();
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
       {!!nameCtx.name ? <AuthScreens /> : <UnAuthScreen />}
     </NavigationContainer>
   );
@@ -82,11 +88,13 @@ const Navigate = () => {
 
 export default App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <NameContextProvider>
-        <Navigate />
-      </NameContextProvider>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <ThemeContextProvider>
+      <SafeAreaView style={{flex: 1}}>
+        <NameContextProvider>
+          <Navigate />
+        </NameContextProvider>
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </ThemeContextProvider>
   );
 };

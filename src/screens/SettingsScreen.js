@@ -1,43 +1,32 @@
-import { Text, StyleSheet, ImageBackground, View } from "react-native";
-import { NameContext } from "../Utils/name-context";
-import { useContext } from "react";
+import {Text, StyleSheet, View, Button} from 'react-native';
+import {useContext} from 'react';
+import {ThemeContext} from '../Utils/theme-context';
+import {useTheme} from '@react-navigation/native';
 
 const SettingsScreen = () => {
-    const nameCtx = useContext(NameContext);
-    return (
-        <View style={styles.outerScreen}>
-            <ImageBackground
-                source={require("../../assets/images/shopping.png")}
-                resizeMode="cover"
-                style={styles.rootScreen}
-                imageStyle={styles.image}
-            >
-                <Text style={styles.text}> Settings Screen !!</Text>
-            </ImageBackground>
-        </View>
-    );
-}
+  const themeCtx = useContext(ThemeContext);
+  const {colors} = useTheme();
+
+  return (
+    <>
+      <View style={styles.container}>
+        <Button title="Change Theme" onPress={themeCtx.toggleTheme} />
+      </View>
+      <Text style={[styles.text, {color: colors.text}]}>
+        The Text color changes according to the Theme..!
+      </Text>
+    </>
+  );
+};
 export default SettingsScreen;
 
 const styles = StyleSheet.create({
-    outerScreen: {
-        backgroundColor: "black",
-    },
-    rootScreen: {
-        height: "100%",
-        paddingTop: 15,
-    },
-    image: {
-        opacity: 0.35,
-    },
-    text: {
-        marginTop: 80,
-        fontSize: 30,
-        fontWeight: "bold",
-        textAlign: "center",
-        borderWidth: 1,
-        padding: 10,
-        backgroundColor: "#3B3B3B",
-        color: "#C5C5C5",
-    },
+  container: {
+    marginTop: 30,
+  },
+  text: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginVertical: 20,
+  },
 });
