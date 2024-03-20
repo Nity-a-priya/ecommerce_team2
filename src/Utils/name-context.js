@@ -1,32 +1,44 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useState, createContext} from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState, createContext } from "react";
 
 export const NameContext = createContext({
-  name: '',
+  name: "",
   setStoreData: () => {},
   getStoreData: () => {},
 });
 
-const NameContextProvider = ({children}) => {
-  const [value, setValue] = useState('');
+const NameContextProvider = ({ children }) => {
+  const [name, setName] = useState("");
 
-  const setStoreData = (key, value) => {
-    AsyncStorage.setItem(key, value);
-    setValue(value);
+  const setStoreData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+      setName(value);
+    } catch (error) {
+      console.error("Error setting data:", error);
+    }
   };
 
-  const getStoreData = async key => {
-    let name = await AsyncStorage.getItem(key);
-    setValue(name);
+  const getStoreData = async (key) => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      if (value !== null) {
+        setName(value);
+      }
+    } catch (error) {
+      console.error("Error getting data:", error);
+    }
   };
 
-  const values = {
-    name: value,
+  const contextValue = {
+    name: name,
     setStoreData: setStoreData,
     getStoreData: getStoreData,
   };
 
-  return <NameContext.Provider value={values}>{children}</NameContext.Provider>;
+  return (
+    <NameContext.Provider value={contextValue}>{children}</NameContext.Provider>
+  );
 };
 
 export default NameContextProvider;
