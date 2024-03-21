@@ -3,6 +3,7 @@ import {useContext} from 'react';
 import {ThemeContext} from '../Utils/theme-context';
 import {useTheme} from '@react-navigation/native';
 import {NameContext} from '../Utils/name-context';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const SettingsScreen = () => {
   const themeCtx = useContext(ThemeContext);
@@ -18,7 +19,13 @@ const SettingsScreen = () => {
   return (
     <>
       <View style={styles.container}>
-        <Button title="Change Theme" onPress={themeHandler} />
+        <MaterialIcons
+          name="brightness-6"
+          size={24}
+          onPress={themeHandler}
+          color={colors.text}
+          style={styles.icon}
+        />
       </View>
       <Text style={[styles.text, {color: colors.text}]}>
         The Text color changes according to the Theme..!
@@ -31,6 +38,9 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   container: {
     marginTop: 30,
+  },
+  icon: {
+    textAlign: 'center',
   },
   text: {
     fontSize: 20,
