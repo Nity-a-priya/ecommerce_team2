@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {StatusBar, SafeAreaView, useColorScheme} from 'react-native';
 
 import Login from './src/screens/Login';
@@ -75,13 +75,16 @@ const UnAuthScreen = () => {
 };
 
 const Navigate = () => {
-  const nameCtx = useContext(NameContext);
-  nameCtx.getStoreData('name');
-  const scheme = useColorScheme();
+  const {name, setStoreData, getStoreData} = useContext(NameContext);
+  useEffect(() => {
+    getStoreData('name');
+    getStoreData('theme');
+  }, []);
 
   return (
-    <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-      {!!nameCtx.name ? <AuthScreens /> : <UnAuthScreen />}
+    <NavigationContainer
+      theme={name.theme === 'dark' ? DarkTheme : DefaultTheme}>
+      {!!name.name ? <AuthScreens /> : <UnAuthScreen />}
     </NavigationContainer>
   );
 };

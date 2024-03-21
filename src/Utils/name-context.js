@@ -1,37 +1,37 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState, createContext } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useState, createContext} from 'react';
 
 export const NameContext = createContext({
-  name: "",
+  name: '',
   setStoreData: () => {},
   getStoreData: () => {},
 });
 
-const NameContextProvider = ({ children }) => {
-  const [name, setName] = useState("");
+const NameContextProvider = ({children}) => {
+  const [retrievedData, setretrievedData] = useState({});
 
   const setStoreData = async (key, value) => {
     try {
       await AsyncStorage.setItem(key, value);
-      setName(value);
+      setretrievedData(currvalue => ({...currvalue, [key]: value}));
     } catch (error) {
-      console.error("Error setting data:", error);
+      console.error('Error setting data:', error);
     }
   };
 
-  const getStoreData = async (key) => {
+  const getStoreData = async key => {
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
-        setName(value);
+        setretrievedData(currvalue => ({...currvalue, [key]: value})); // {'name':'nitya','theme':'dark'}
       }
     } catch (error) {
-      console.error("Error getting data:", error);
+      console.error('Error getting data:', error);
     }
   };
 
   const contextValue = {
-    name: name,
+    name: retrievedData,
     setStoreData: setStoreData,
     getStoreData: getStoreData,
   };
