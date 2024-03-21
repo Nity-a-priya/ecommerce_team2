@@ -23,7 +23,7 @@ const NameContextProvider = ({children}) => {
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
-        setretrievedData(currvalue => ({...currvalue, [key]: value})); // {'name':'nitya','theme':'dark'}
+        setretrievedData(currvalue => ({...currvalue, [key]: value}));
       }
     } catch (error) {
       console.error('Error getting data:', error);
