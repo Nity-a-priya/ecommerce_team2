@@ -1,36 +1,41 @@
 import {Text, StyleSheet, ImageBackground, View} from 'react-native';
 import {NameContext} from '../Utils/name-context';
-import {useContext} from 'react';
+import {useContext, useEffect, useState} from 'react';
+import HomeGrid from '../Components/HomeList/HomeGrid';
 
 const HomeScreen = () => {
   const nameCtx = useContext(NameContext);
+  const [dataList, setDatalist] = useState([]);
+
+  const getAPIData = async () => {
+    const url = 'https://fakestoreapi.com/products';
+    let result = await fetch(url);
+    result = await result.json();
+    setDatalist(result);
+  };
+  useEffect(() => {
+    getAPIData();
+  }, []);
+
   return (
     <View style={styles.outerScreen}>
-      <ImageBackground
-        source={require('../../assets/images/shopping.png')}
-        resizeMode="cover"
-        style={styles.rootScreen}
-        imageStyle={styles.image}>
-        <Text style={styles.text}>Hey {nameCtx.name.name} !!</Text>
-      </ImageBackground>
+      <Text style={styles.text}>Hey {nameCtx.name.name} !!</Text>
+      <HomeGrid dataList={dataList} />
     </View>
   );
 };
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  outerScreen: {
-    backgroundColor: 'black',
-  },
+  outerScreen: {},
   rootScreen: {
     height: '100%',
     paddingTop: 15,
   },
   image: {
-    opacity: 0.35,
+    opacity: 0.15,
   },
   text: {
-    marginTop: 80,
     fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',

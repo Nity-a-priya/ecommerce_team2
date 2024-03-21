@@ -7,9 +7,10 @@ import Navigate from './src/Components/Navigation/Navigate';
 
 export default App = () => {
   const scheme = useColorScheme();
+
   return (
     <ThemeContextProvider>
-      <StatusBar style={scheme} />
+      <StatusBar backgroundColor={scheme} />
       <SafeAreaView style={{flex: 1}}>
         <NameContextProvider>
           <Navigate />
