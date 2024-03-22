@@ -7,12 +7,9 @@ import Navigate from './src/Components/Navigation/Navigate';
 export default App = () => {
   return (
     <>
-      <StatusBar />
-      <SafeAreaView style={{flex: 1}}>
-        <NameContextProvider>
-          <Navigate />
-        </NameContextProvider>
-      </SafeAreaView>
+      <NameContextProvider>
+        <Navigate />
+      </NameContextProvider>
     </>
   );
 };
