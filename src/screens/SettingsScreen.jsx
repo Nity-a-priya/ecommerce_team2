@@ -1,19 +1,17 @@
 import {Text, StyleSheet, View, Button, useColorScheme} from 'react-native';
-import {useContext} from 'react';
-import {ThemeContext} from '../Utils/theme-context';
+import {useContext, useEffect} from 'react';
 import {useTheme} from '@react-navigation/native';
 import {NameContext} from '../Utils/name-context';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const SettingsScreen = () => {
-  const themeCtx = useContext(ThemeContext);
   const storeCtx = useContext(NameContext);
   const {colors} = useTheme();
   const scheme = useColorScheme();
 
   const themeHandler = () => {
-    themeCtx.toggleTheme();
-    storeCtx.setStoreData('theme', scheme);
+    const setTheme = scheme === 'dark' ? 'light' : 'dark';
+    storeCtx.setStoreData('theme', setTheme);
   };
 
   return (
