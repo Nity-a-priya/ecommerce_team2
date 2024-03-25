@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState, createContext, ReactNode } from 'react';
+import React, {useState, createContext, ReactNode} from 'react';
 
 interface ContextProps {
-  name: { [key: string]: string };
+  name: {[key: string]: string};
   setStoreData: (key: string, value: string) => Promise<void>;
   getStoreData: (key: string) => Promise<void>;
 }
@@ -17,13 +17,15 @@ interface Props {
   children: ReactNode;
 }
 
-const NameContextProvider: React.FC<Props> = ({ children }) => {
-  const [retrievedData, setRetrievedData] = useState<{ [key: string]: string }>({});
+const NameContextProvider: React.FC<Props> = ({children}) => {
+  const [retrievedData, setRetrievedData] = useState<{[key: string]: string}>(
+    {},
+  );
 
   const setStoreData = async (key: string, value: string) => {
     try {
       await AsyncStorage.setItem(key, value);
-      setRetrievedData(currValue => ({ ...currValue, [key]: value }));
+      setRetrievedData(currValue => ({...currValue, [key]: value}));
     } catch (error) {
       console.error('Error setting data:', error);
     }
@@ -33,7 +35,7 @@ const NameContextProvider: React.FC<Props> = ({ children }) => {
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
-        setRetrievedData(currValue => ({ ...currValue, [key]: value }));
+        setRetrievedData(currValue => ({...currValue, [key]: value}));
       }
     } catch (error) {
       console.error('Error getting data:', error);

@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		4E3D4EF62BB17F3400618D64 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E3D4EF52BB17F3400618D64 /* libsqlite3.0.tbd */; };
 		7699B88040F8A987B510C191 /* libPods-RnEcommerceTeam2-RnEcommerceTeam2Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-RnEcommerceTeam2-RnEcommerceTeam2Tests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		EC5D588D2BAB3016004D6144 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC5D587A2BAB3016004D6144 /* Fontisto.ttf */; };
@@ -57,6 +58,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RnEcommerceTeam2/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-RnEcommerceTeam2-RnEcommerceTeam2Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnEcommerceTeam2-RnEcommerceTeam2Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-RnEcommerceTeam2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnEcommerceTeam2.debug.xcconfig"; path = "Target Support Files/Pods-RnEcommerceTeam2/Pods-RnEcommerceTeam2.debug.xcconfig"; sourceTree = "<group>"; };
+		4E3D4EF52BB17F3400618D64 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		5709B34CF0A7D63546082F79 /* Pods-RnEcommerceTeam2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnEcommerceTeam2.release.xcconfig"; path = "Target Support Files/Pods-RnEcommerceTeam2/Pods-RnEcommerceTeam2.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-RnEcommerceTeam2-RnEcommerceTeam2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnEcommerceTeam2-RnEcommerceTeam2Tests.debug.xcconfig"; path = "Target Support Files/Pods-RnEcommerceTeam2-RnEcommerceTeam2Tests/Pods-RnEcommerceTeam2-RnEcommerceTeam2Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-RnEcommerceTeam2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnEcommerceTeam2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E3D4EF62BB17F3400618D64 /* libsqlite3.0.tbd in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-RnEcommerceTeam2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +141,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E3D4EF52BB17F3400618D64 /* libsqlite3.0.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-RnEcommerceTeam2.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-RnEcommerceTeam2-RnEcommerceTeam2Tests.a */,
@@ -665,10 +669,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -736,10 +737,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

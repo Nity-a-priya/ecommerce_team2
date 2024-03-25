@@ -27,6 +27,7 @@ end
 
 target 'RnEcommerceTeam2' do
   config = use_native_modules!
+  pod 'react-native-sqlite-storage', :path => '../node_modules/react-native-sqlite-storage'
 
   use_react_native!(
     :path => config[:reactNativePath],

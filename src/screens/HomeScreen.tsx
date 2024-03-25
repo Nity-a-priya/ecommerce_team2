@@ -2,13 +2,12 @@ import {Text, StyleSheet, ImageBackground, View} from 'react-native';
 import {NameContext} from '../Utils/name-context';
 import {useContext, useEffect, useState} from 'react';
 import HomeGrid from '../Components/HomeList/HomeGrid';
-import ProductModel from '../Model/ProductModel'
-
+import ProductModel from '../Model/ProductModel';
 
 const HomeScreen = () => {
   const [dataList, setDatalist] = useState<ProductModel[]>([]);
   const {name, getStoreData} = useContext(NameContext);
- 
+
   const getAPIData = async () => {
     const url = 'https://fakestoreapi.com/products';
     const response = await fetch(url);
