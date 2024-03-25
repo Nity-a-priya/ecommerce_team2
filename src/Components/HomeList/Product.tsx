@@ -1,4 +1,4 @@
-import {Image, Text, View, StyleSheet, Pressable} from 'react-native';
+import {Image, Text, View, StyleSheet, Pressable, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
 import {
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginHorizontal: 5,
     marginTop: 5,
+    color: '#C00000',
   },
   itemContainer: {
     flex: 1,
