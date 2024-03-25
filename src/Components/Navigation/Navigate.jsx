@@ -18,8 +18,7 @@ const Navigate = () => {
   }, []);
 
   useEffect(() => {
-    const theme = name.theme === 'light' ? 'light' : 'dark';
-    Appearance.setColorScheme(theme);
+    Appearance.setColorScheme(name.theme);
   }, [name]);
 
   return (
