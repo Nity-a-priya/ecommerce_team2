@@ -1,7 +1,11 @@
 import {Image, Text, View, StyleSheet, Pressable} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
-import {addWishlistItem, connectToDatabase} from '../../Utils/SQLiteDB';
+import {
+  addWishlistItem,
+  connectToDatabase,
+  removeFromWishlist,
+} from '../../Utils/SQLiteDB';
 import {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProductModel from '../../Model/ProductModel';
@@ -17,6 +21,7 @@ const Product: React.FC<Props> = ({itemdata}) => {
     const db = await connectToDatabase();
     if (isFavourite) {
       setIsFavourite(false);
+      await removeFromWishlist(db, itemdata);
     } else {
       setIsFavourite(true);
       await addWishlistItem(db, itemdata);

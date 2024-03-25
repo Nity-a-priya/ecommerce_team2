@@ -7,19 +7,21 @@ import {
   removeTable,
 } from '../Utils/SQLiteDB';
 import ProductModel from '../Model/ProductModel';
+import {useIsFocused} from '@react-navigation/native';
 
 const WishlistScreen = () => {
   const [wishlistItems, setWishlistItems] = useState<ProductModel[]>([]);
+  const isFocused = useIsFocused();
 
   const getWishlistItems = async () => {
     const db = await connectToDatabase();
     const items = await getAllWishListItems(db);
-    console.log(items);
     setWishlistItems(items);
   };
+
   useEffect(() => {
     getWishlistItems();
-  }, [addWishlistItem]);
+  }, [isFocused]);
 
   return (
     <View style={styles.outerScreen}>

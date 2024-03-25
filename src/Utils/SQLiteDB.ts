@@ -93,3 +93,20 @@ export const removeTable = async (db: SQLiteDatabase, tableName: Table) => {
     throw Error(`Failed to drop table ${tableName}`);
   }
 };
+
+export const removeFromWishlist = async (
+  db: SQLiteDatabase,
+  product: Product,
+) => {
+  const deleteQuery = `
+      DELETE FROM UserWishlist
+      WHERE id = ?
+    `;
+  const values = [product.id];
+  try {
+    return db.executeSql(deleteQuery, values);
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to remove product');
+  }
+};
