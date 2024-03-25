@@ -7,7 +7,7 @@ import {NameContext} from '../../Utils/name-context';
 import React, {useContext, useEffect, useLayoutEffect} from 'react';
 import AuthScreens from './AuthScreenNavigation';
 import UnAuthScreen from './UnauthScreenNavigation';
-import {Appearance, useColorScheme} from 'react-native';
+import {Appearance, useColorScheme, ColorSchemeName } from 'react-native';
 
 const Navigate = () => {
   const {name, setStoreData, getStoreData} = useContext(NameContext);
@@ -18,7 +18,8 @@ const Navigate = () => {
   }, []);
 
   useEffect(() => {
-    Appearance.setColorScheme(name.theme);
+    const colorScheme: ColorSchemeName = name.theme as ColorSchemeName;
+    Appearance.setColorScheme(colorScheme);
   }, [name]);
 
   return (

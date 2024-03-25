@@ -1,17 +1,22 @@
+import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const Button = ({ children, onPress }) => {
+interface Props {
+  children: React.ReactNode;
+  onPress: () => void;
+}
+
+const Button: React.FC<Props> = ({children, onPress}) => {
   return (
     <Pressable
-      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-      onPress={onPress}
-    >
+      style={({pressed}) => [styles.button, pressed && styles.pressed]}
+      onPress={onPress}>
       <View>
         <Text style={styles.buttonText}>{children}</Text>
       </View>
     </Pressable>
   );
-}
+};
 
 export default Button;
 
