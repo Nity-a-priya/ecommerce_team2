@@ -5,6 +5,7 @@ import {
   addWishlistItem,
   connectToDatabase,
   removeFromWishlist,
+  getSpecificItem,
 } from '../../Utils/SQLiteDB';
 import {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -16,6 +17,15 @@ interface Props {
 const Product: React.FC<Props> = ({itemdata}) => {
   const {colors} = useTheme();
   const [isFavourite, setIsFavourite] = useState(false);
+
+  const getItem = async () => {
+    const db = await connectToDatabase();
+    const itemPresence = await getSpecificItem(db, itemdata);
+    !!itemPresence ? setIsFavourite(true) : setIsFavourite(false);
+  };
+  useEffect(() => {
+    getItem();
+  }, []);
 
   const favouritesHandler = async () => {
     const db = await connectToDatabase();

@@ -82,6 +82,21 @@ export const getAllWishListItems = async (
   }
 };
 
+export const getSpecificItem = async (db: SQLiteDatabase, product: Product) => {
+  const query = `SELECT * FROM UserWishlist WHERE id = ${product.id}`;
+  try {
+    const results = await db.executeSql(query);
+    if (results[0]?.rows?.length) {
+      return results[0].rows.item(0);
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to get user preferences from database');
+  }
+};
+
 type Table = 'UserWishlist';
 
 export const removeTable = async (db: SQLiteDatabase, tableName: Table) => {
