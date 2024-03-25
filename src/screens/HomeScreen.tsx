@@ -3,23 +3,37 @@ import {NameContext} from '../Utils/name-context';
 import {useContext, useEffect, useState} from 'react';
 import HomeGrid from '../Components/HomeList/HomeGrid';
 
-const HomeScreen = () => {
-  const nameCtx = useContext(NameContext);
-  const [dataList, setDatalist] = useState([]);
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
 
+const HomeScreen = () => {
+  const [dataList, setDatalist] = useState<Product[]>([]);
+  const {name, getStoreData} = useContext(NameContext);
+ 
   const getAPIData = async () => {
     const url = 'https://fakestoreapi.com/products';
-    let result = await fetch(url);
-    result = await result.json();
+    const response = await fetch(url);
+    const result: Product[] = await response.json();
     setDatalist(result);
   };
   useEffect(() => {
     getAPIData();
+    getStoreData('name');
   }, []);
 
   return (
     <View style={styles.outerScreen}>
-      <Text style={styles.text}>Hey {nameCtx.name.name} !!</Text>
+      <Text style={styles.text}>Hey {name.name} !!</Text>
       <HomeGrid dataList={dataList} />
     </View>
   );

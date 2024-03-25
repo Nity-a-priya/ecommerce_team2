@@ -1,9 +1,7 @@
 import { Text, StyleSheet, ImageBackground, View } from "react-native";
-import { NameContext } from "../Utils/name-context";
-import { useContext } from "react";
 
 const CartScreen = () => {
-    const nameCtx = useContext(NameContext);
+
     return (
         <View style={styles.outerScreen}>
             <ImageBackground
