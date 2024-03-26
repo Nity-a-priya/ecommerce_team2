@@ -2,6 +2,7 @@ import {FlatList, View, StyleSheet} from 'react-native';
 import Product from './Product';
 import ProductModel from '../../Model/ProductModel';
 import {useEffect, useState} from 'react';
+import {useIsFocused} from '@react-navigation/native';
 import {
   connectToDatabase,
   getAllWishListItems,
@@ -15,6 +16,7 @@ interface Props {
 
 const HomeGrid: React.FC<Props> = ({dataList}) => {
   const [wishlist, setWishlist] = useState<ProductModel[]>([]);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     async function fetchWishlist() {
@@ -23,7 +25,7 @@ const HomeGrid: React.FC<Props> = ({dataList}) => {
       setWishlist(allItems);
     }
     fetchWishlist();
-  }, []);
+  }, [isFocused]);
 
   const favouritesHandler = async (itemdata: ProductModel) => {
     const db = await connectToDatabase();

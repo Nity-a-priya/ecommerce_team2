@@ -55,12 +55,14 @@ const Product: React.FC<Props> = ({itemdata, wishlist, favouritesHandler}) => {
           <Text style={[styles.price, {color: colors.text}]}>
             ${itemdata.price}
           </Text>
+
           <View style={styles.rating}>
             <StarRatingDisplay rating={itemdata.rating.rate} starSize={18} />
             <Text style={[styles.ratingNumber, {color: colors.text}]}>
               ({itemdata.rating.rate})
             </Text>
           </View>
+          
         </View>
       </Pressable>
     </View>

@@ -72,7 +72,20 @@ export const getAllWishListItems = async (
     const results = await db.executeSql('SELECT * FROM UserWishlist');
     results?.forEach(result => {
       for (let index = 0; index < result.rows.length; index++) {
-        wishlist.push(result.rows.item(index));
+        const row = result.rows.item(index);
+        const product: Product = {
+          id: row.id,
+          title: row.title,
+          price: row.price,
+          description: row.description,
+          category: row.category,
+          image: row.image,
+          rating: {
+            rate: row.rate,
+            count: row.count,
+          },
+        };
+        wishlist.push(product);
       }
     });
     return wishlist;
@@ -81,6 +94,17 @@ export const getAllWishListItems = async (
     throw Error('Failed to get wishlist from database');
   }
 };
+
+// {
+//   "category": "men's clothing",
+//   "count": 259,
+//   "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+//   "id": 2,
+//   "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+//   "price": 22.3,
+//   "rate": 4.1,
+//   "title": "Mens Casual Premium Slim Fit T-Shirts "
+// }
 
 export const getSpecificItem = async (db: SQLiteDatabase, product: Product) => {
   const query = `SELECT * FROM UserWishlist WHERE id = ${product.id}`;
