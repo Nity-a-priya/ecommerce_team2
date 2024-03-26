@@ -1,47 +1,30 @@
 import {Image, Text, View, StyleSheet, Pressable, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
-import {
-  addWishlistItem,
-  connectToDatabase,
-  removeFromWishlist,
-  getSpecificItem,
-} from '../../Utils/SQLiteDB';
-import {useEffect, useState} from 'react';
+import { removeFromWishlist } from '../../Utils/SQLiteDB';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProductModel from '../../Model/ProductModel';
 
 interface Props {
   itemdata: ProductModel;
+  wishlist: ProductModel[];
+  favouritesHandler: (itemdata: ProductModel) => void;
 }
-const Product: React.FC<Props> = ({itemdata}) => {
+
+const Product: React.FC<Props> = ({itemdata, wishlist, favouritesHandler}) => {
   const {colors} = useTheme();
-  const [isFavourite, setIsFavourite] = useState(false);
-
-  const getItem = async () => {
-    const db = await connectToDatabase();
-    const itemPresence = await getSpecificItem(db, itemdata);
-    !!itemPresence ? setIsFavourite(true) : setIsFavourite(false);
-  };
-  useEffect(() => {
-    getItem();
-  }, []);
-
-  const favouritesHandler = async () => {
-    const db = await connectToDatabase();
-    if (isFavourite) {
-      setIsFavourite(false);
-      await removeFromWishlist(db, itemdata);
-    } else {
-      setIsFavourite(true);
-      await addWishlistItem(db, itemdata);
-    }
-  };
+  const isFavourite = wishlist.some(
+    wishlistItem => wishlistItem.id === itemdata.id,
+  );
 
   let heartType = 'heart-outline';
   if (isFavourite) {
     heartType = 'heart';
   }
+
+  const favouritesTouchHandler = async () => {
+    favouritesHandler(itemdata);
+  };
 
   return (
     <View style={[styles.rootContainer, {backgroundColor: colors.card}]}>
@@ -54,7 +37,7 @@ const Product: React.FC<Props> = ({itemdata}) => {
           name={heartType}
           size={24}
           style={styles.favourite}
-          onPress={favouritesHandler}
+          onPress={favouritesTouchHandler}
         />
         <View style={styles.itemContainer}>
           <Image

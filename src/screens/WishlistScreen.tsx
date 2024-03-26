@@ -17,6 +17,7 @@ const WishlistScreen = () => {
     const db = await connectToDatabase();
     const items = await getAllWishListItems(db);
     setWishlistItems(items);
+    console.log(items);
   };
 
   useEffect(() => {
