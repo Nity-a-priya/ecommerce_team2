@@ -1,27 +1,29 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface Props {
   children: React.ReactNode;
   onPress: () => void;
+  icon: string;
 }
 
-const Button: React.FC<Props> = ({children, onPress}) => {
+const ImageButton: React.FC<Props> = ({children, icon, onPress}) => {
   return (
     <Pressable
       style={({pressed}) => [styles.button, pressed && styles.pressed]}
       onPress={onPress}>
-      <View>
-        <Text style={styles.buttonText}>{children}</Text>
-      </View>
+      <Ionicons style={styles.icon} name={icon} size={20} color={'white'} />
+      <Text style={styles.buttonText}>{children}</Text>
     </Pressable>
   );
 };
 
-export default Button;
+export default ImageButton;
 
 const styles = StyleSheet.create({
   button: {
+    flexDirection: 'row',
     borderRadius: 6,
     paddingVertical: 16,
     paddingHorizontal: 12,
@@ -32,6 +34,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     marginHorizontal: 90,
+    marginVertical: 15,
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: 6,
   },
   pressed: {
     opacity: 0.7,

@@ -1,50 +1,43 @@
-import {Image, Text, View, StyleSheet, Pressable, Platform} from 'react-native';
+import {Image, Text, View, StyleSheet, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
-import {Dimensions} from 'react-native';
+import ImageButton from '../Components/ui/ImageButton';
 
-const ProductDetails = ({ route }: any) => {
-
+const ProductDetails = ({route, navigation}: any) => {
   const itemdata = route.params.itemdata;
   const {colors} = useTheme();
 
+  const cartHandler = () => {
+    navigation.navigate('Cart', {itemdata});
+  };
+
   return (
     <View style={[styles.rootContainer, {backgroundColor: colors.card}]}>
-      <Pressable
-        android_ripple={{color: '#ccc'}}
-        style={({pressed}) =>
-          pressed ? [styles.button, styles.pressed] : styles.button
-        }>
-        
-        <View style={styles.itemContainer}>
-          <Image
-            source={{uri: itemdata.image}}
-            style={styles.image}
-            resizeMode="contain"
-          />
+      <View style={styles.itemContainer}>
+        <Image
+          source={{uri: itemdata.image}}
+          style={styles.image}
+          resizeMode="contain"
+        />
 
-          <Text
-            style={[styles.title, {color: colors.text}]}
-            ellipsizeMode="tail">
-            {itemdata.title}
+        <Text style={[styles.title, {color: colors.text}]} ellipsizeMode="tail">
+          {itemdata.title}
+        </Text>
+
+        <Text style={[styles.price, {color: colors.text}]}>
+          ${itemdata.price}
+        </Text>
+
+        <View style={styles.rating}>
+          <StarRatingDisplay rating={itemdata.rating.rate} starSize={28} />
+          <Text style={[styles.ratingNumber, {color: colors.text}]}>
+            ({itemdata.rating.rate})
           </Text>
-
-          <Text
-            style={[styles.price,
-              {color: colors.text},
-            ]}>
-            ${itemdata.price}
-          </Text>
-
-          <View style={styles.rating}>
-            <StarRatingDisplay rating={itemdata.rating.rate} starSize={18} />
-            <Text style={[styles.ratingNumber, {color: colors.text}]}>
-              ({itemdata.rating.rate})
-            </Text>
-          </View>
         </View>
-
-      </Pressable>
+        <ImageButton icon="cart" onPress={cartHandler}>
+          Add to Cart
+        </ImageButton>
+      </View>
     </View>
   );
 };
@@ -52,60 +45,49 @@ export default ProductDetails;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    flex: 1,
     elevation: 4,
     shadowColor: 'black',
     margin: 16,
-    height: 250,
+    height: 500,
     borderRadius: 8,
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 5,
     shadowOpacity: 0.2,
-    maxWidth: Dimensions.get('window').width / 2 - 20,
+    flex: 1,
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
   },
-  button: {
-    flex: 1,
-  },
-  pressed: {
-    opacity: 0.5,
-  },
-
-  favourite: {
-    textAlign: 'right',
-    marginHorizontal: 5,
-    marginTop: 5,
-    color: '#C00000',
-  },
   itemContainer: {
-    flex: 1,
+    marginTop: 30,
     borderRadius: 8,
     padding: 10,
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
   },
   title: {
     marginTop: 15,
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: 20,
     textAlign: 'center',
+    width: 300,
   },
   image: {
-    width: 120,
-    height: 120,
+    width: 240,
+    height: 240,
+    marginBottom: 15,
   },
   price: {
-    marginVertical: 5,
+    marginVertical: 15,
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   rating: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 15,
   },
   ratingNumber: {
-    fontSize: 10,
+    fontSize: 15,
     fontWeight: '300',
   },
 });

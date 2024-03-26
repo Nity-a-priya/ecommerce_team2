@@ -2,7 +2,6 @@ import {FlatList, View, StyleSheet} from 'react-native';
 import Product from './Product';
 import ProductModel from '../../Model/ProductModel';
 import useWishlist from '../Hooks/UseWishlist';
-import {NavigationProp} from '@react-navigation/native';
 
 interface Props {
   dataList: ProductModel[];
