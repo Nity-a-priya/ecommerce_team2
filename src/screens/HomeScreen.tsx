@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from 'react';
 import HomeGrid from '../Components/HomeList/HomeGrid';
 import ProductModel from '../Model/ProductModel';
 
-const HomeScreen = () => {
+const HomeScreen = (prop: any) => {
   const [dataList, setDatalist] = useState<ProductModel[]>([]);
   const {name, getStoreData} = useContext(NameContext);
 
@@ -22,7 +22,7 @@ const HomeScreen = () => {
   return (
     <View style={styles.outerScreen}>
       <Text style={styles.text}>Hey {name.name} !!</Text>
-      <HomeGrid dataList={dataList} />
+      <HomeGrid dataList={dataList} navigation={prop.navigation} />
     </View>
   );
 };

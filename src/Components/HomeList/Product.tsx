@@ -39,6 +39,7 @@ const Product: React.FC<Props> = ({
   };
 
   const productTouchHandler = async () => {
+    console.log("Product Touched");
     navigation.navigate('ProductDetails', {productData: itemdata});
   };
 
