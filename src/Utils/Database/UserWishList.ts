@@ -1,7 +1,7 @@
 import {
   SQLiteDatabase,
 } from 'react-native-sqlite-storage';
-import Product from '../Model/ProductModel';
+import Product from '../../Model/ProductModel';
 
 export const addWishlistItem = async (db: SQLiteDatabase, product: Product) => {
   const insertQuery = `

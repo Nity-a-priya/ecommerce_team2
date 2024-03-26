@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
 import ProductModel from '../../Model/ProductModel';
-import { connectToDatabase } from '../../Utils/SQLiteDB';
+import { connectToDatabase } from '../../Utils/Database/SQLiteDB';
 import {
   addWishlistItem,
   getAllWishListItems,
   removeFromWishlist,
-} from '../../Utils/UserWishList';
+} from '../../Utils/Database/UserWishList';
 
 const useWishlist = () => {
   const [wishlist, setWishlist] = useState<ProductModel[]>([]);

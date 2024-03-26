@@ -1,11 +1,15 @@
 import {Image, Text, View, StyleSheet, Pressable, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
-import {useTheme} from '@react-navigation/native';
+import {
+  useTheme,
+  NavigationProp,
+} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProductModel from '../../Model/ProductModel';
 import {Dimensions} from 'react-native';
 
 interface Props {
+  navigation: NavigationProp<any>;
   itemdata: ProductModel;
   wishlist: ProductModel[];
   favouritesHandler: (itemdata: ProductModel) => void;
@@ -13,12 +17,14 @@ interface Props {
 }
 
 const Product: React.FC<Props> = ({
+  navigation,
   itemdata,
   wishlist,
   favouritesHandler,
   isWishlist,
 }) => {
   const {colors} = useTheme();
+
   const isFavourite = wishlist.some(
     wishlistItem => wishlistItem.id === itemdata.id,
   );
@@ -32,6 +38,10 @@ const Product: React.FC<Props> = ({
     favouritesHandler(itemdata);
   };
 
+  const productTouchHandler = async () => {
+    navigation.navigate('ProductDetails', {productData: itemdata});
+  };
+
   return (
     <View
       style={[
@@ -42,7 +52,8 @@ const Product: React.FC<Props> = ({
         android_ripple={{color: '#ccc'}}
         style={({pressed}) =>
           pressed ? [styles.button, styles.pressed] : styles.button
-        }>
+        }
+        onPress={productTouchHandler}>
         <Ionicons
           name={heartType}
           size={24}
@@ -70,7 +81,11 @@ const Product: React.FC<Props> = ({
               {itemdata.title}
             </Text>
 
-            <Text style={[ isWishlist ? wishlistStyles.price : styles.price, {color: colors.text}]}>
+            <Text
+              style={[
+                isWishlist ? wishlistStyles.price : styles.price,
+                {color: colors.text},
+              ]}>
               ${itemdata.price}
             </Text>
 

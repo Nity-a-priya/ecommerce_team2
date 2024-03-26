@@ -3,7 +3,7 @@ import {StatusBar, SafeAreaView} from 'react-native';
 
 import NameContextProvider from './src/Utils/name-context';
 import Navigate from './src/Components/Navigation/Navigate';
-import {connectToDatabase, createTables} from '././src/Utils/SQLiteDB';
+import {connectToDatabase, createTables} from './src/Utils/Database/SQLiteDB';
 
 export default App = () => {
   const loadData = useCallback(async () => {
