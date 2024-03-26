@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Text, StyleSheet, ImageBackground, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList} from 'react-native';
 import ProductModel from '../Model/ProductModel';
 import Product from '../Components/HomeList/Product';
 import {useIsFocused} from '@react-navigation/native';
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     color: '#C5C5C5',
   },
   rootContainer: {
-    paddingBottom: '25%',
+    flex: 1,
+    padding: 8,
   },
 });

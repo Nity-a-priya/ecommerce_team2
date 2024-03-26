@@ -1,9 +1,9 @@
 import {Image, Text, View, StyleSheet, Pressable, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
-import { removeFromWishlist } from '../../Utils/SQLiteDB';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProductModel from '../../Model/ProductModel';
+import {Dimensions} from 'react-native';
 
 interface Props {
   itemdata: ProductModel;
@@ -62,7 +62,6 @@ const Product: React.FC<Props> = ({itemdata, wishlist, favouritesHandler}) => {
               ({itemdata.rating.rate})
             </Text>
           </View>
-          
         </View>
       </Pressable>
     </View>
@@ -72,14 +71,13 @@ export default Product;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    margin: 16,
+    margin: 8,
     height: 250,
     borderRadius: 8,
-    elevation: 4,
-    shadowColor: 'black',
     shadowOffset: {width: 0, height: 2},
-    shadowRadius: 8,
-    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    shadowOpacity: 0.2,
+    maxWidth: Dimensions.get('window').width/2 - 20,
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
   },
   button: {

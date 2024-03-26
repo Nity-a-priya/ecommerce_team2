@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     opacity: 0.15,
   },
   text: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     borderWidth: 1,

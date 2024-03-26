@@ -1,5 +1,5 @@
 import {Text, StyleSheet, View, Button, useColorScheme} from 'react-native';
-import {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import {useTheme} from '@react-navigation/native';
 import {NameContext} from '../Utils/name-context';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
