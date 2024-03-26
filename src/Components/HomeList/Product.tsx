@@ -71,13 +71,15 @@ export default Product;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    margin: 8,
+    elevation: 4,
+    shadowColor: 'black',
+    margin: 16,
     height: 250,
     borderRadius: 8,
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 5,
     shadowOpacity: 0.2,
-    maxWidth: Dimensions.get('window').width/2 - 20,
+    maxWidth: Dimensions.get('window').width / 2 - 20,
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
   },
   button: {
