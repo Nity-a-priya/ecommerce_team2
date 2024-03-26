@@ -23,7 +23,7 @@ const WishlistScreen = () => {
 
   useEffect(() => {
     getWishlistItems();
-  }, [isFocused]);
+  }, [removeFromWishlist, addWishlistItem]);
 
   const favouritesHandler = async (itemdata: ProductModel) => {
      const db = await connectToDatabase();
