@@ -2,13 +2,25 @@ import {Image, Text, View, StyleSheet, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
 import ImageButton from '../Components/ui/ImageButton';
+import {addCartlistItem} from '../Utils/Database/UserCartList';
+import CartModel from '../Model/CartModel';
+import {connectToDatabase} from '../Utils/Database/SQLiteDB';
 
 const ProductDetails = ({route, navigation}: any) => {
   const itemdata = route.params.itemdata;
   const {colors} = useTheme();
 
-  const cartHandler = () => {
-    navigation.navigate('Cart', {itemdata});
+  const cartHandler = async () => {
+    const db = await connectToDatabase();
+    const cartItem: CartModel = {
+      id: itemdata.id,
+      title: itemdata.title,
+      price: itemdata.price,
+      image: itemdata.image,
+      quantity: 1,
+    };
+    addCartlistItem(db, cartItem);
+    navigation.navigate('Cart');
   };
 
   return (
@@ -78,7 +90,7 @@ const styles = StyleSheet.create({
   price: {
     marginVertical: 15,
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: 28,
     fontWeight: 'bold',
   },
   rating: {

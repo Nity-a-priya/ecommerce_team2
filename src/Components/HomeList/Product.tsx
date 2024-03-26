@@ -1,18 +1,18 @@
 import {Image, Text, View, StyleSheet, Pressable, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
-import {
-  useTheme,
-  useNavigation,
-} from '@react-navigation/native';
+import {useTheme, useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProductModel from '../../Model/ProductModel';
 import {Dimensions} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 type RootStackParamList = {
-  ProductDetails: { itemdata: ProductModel };
+  ProductDetails: {itemdata: ProductModel};
 };
-type ProductDetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ProductDetails'>;
+type ProductDetailsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'ProductDetails'
+>;
 
 interface Props {
   itemdata: ProductModel;
@@ -42,9 +42,8 @@ const Product: React.FC<Props> = ({
   const favouritesTouchHandler = async () => {
     favouritesHandler(itemdata);
   };
-  
+
   const productTouchHandler = async () => {
-    console.log('Product Touched', itemdata);
     navigation.navigate('ProductDetails', {itemdata: itemdata});
   };
 
@@ -70,7 +69,6 @@ const Product: React.FC<Props> = ({
           style={
             isWishlist ? wishlistStyles.itemContainer : styles.itemContainer
           }>
-
           <Image
             source={{uri: itemdata.image}}
             style={isWishlist ? wishlistStyles.image : styles.image}

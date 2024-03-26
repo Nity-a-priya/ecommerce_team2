@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import ProductModel from '../../Model/ProductModel';
-import { connectToDatabase } from '../../Utils/Database/SQLiteDB';
+import {connectToDatabase} from '../../Utils/Database/SQLiteDB';
 import {
   addWishlistItem,
   getAllWishListItems,

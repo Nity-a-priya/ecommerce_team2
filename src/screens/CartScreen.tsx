@@ -1,41 +1,44 @@
-import { Text, StyleSheet, ImageBackground, View } from "react-native";
+import {useEffect, useState} from 'react';
+
+import CartList from '../Components/CartList';
+import {connectToDatabase} from '../Utils/Database/SQLiteDB';
+import {
+  addCartlistItem,
+  getAllCartListItems,
+} from '../Utils/Database/UserCartList';
+import CartModel from '../Model/CartModel';
+import {FlatList} from 'react-native-gesture-handler';
+import {View, StyleSheet} from 'react-native';
 
 const CartScreen = () => {
+  const [cartItems, setCartItems] = useState<CartModel[]>([]);
 
-    return (
-        <View style={styles.outerScreen}>
-            <ImageBackground
-                source={require("../../assets/images/shopping.png")}
-                resizeMode="cover"
-                style={styles.rootScreen}
-                imageStyle={styles.image}
-            >
-            <Text style={styles.text}> Cart Screen !!</Text>
-            </ImageBackground>
-        </View>
-    );
-}
+  const getCartList = async () => {
+    const db = await connectToDatabase();
+    const allcartItems = await getAllCartListItems(db);
+    setCartItems(allcartItems);
+  };
+  useEffect(() => {
+    getCartList();
+  }, [cartItems]);
+
+  return (
+    <View style={styles.rootContainer}>
+      <FlatList
+        data={cartItems}
+        renderItem={({item}) => {
+          return <CartList itemdata={item} />;
+        }}
+        keyExtractor={item => item.id.toString()}
+      />
+    </View>
+  );
+};
 export default CartScreen;
 
 const styles = StyleSheet.create({
-    outerScreen: {
-        backgroundColor: "black",
-    },
-    rootScreen: {
-        height: "100%",
-        paddingTop: 15,
-    },
-    image: {
-        opacity: 0.35,
-    },
-    text: {
-        marginTop: 80,
-        fontSize: 30,
-        fontWeight: "bold",
-        textAlign: "center",
-        borderWidth: 1,
-        padding: 10,
-        backgroundColor: "#3B3B3B",
-        color: "#C5C5C5",
-    },
+  rootContainer: {
+    flex: 1,
+    padding: 8,
+  },
 });

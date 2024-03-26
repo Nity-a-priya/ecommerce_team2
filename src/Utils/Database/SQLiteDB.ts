@@ -32,8 +32,19 @@ export const createTables = async (db: SQLiteDatabase) => {
           PRIMARY KEY(id)
       )
     `;
+  const UserCartlistQuery = `
+    CREATE TABLE IF NOT EXISTS UserCartlist (
+        id INTEGER DEFAULT 1,
+        title TEXT,
+        price INTEGER,
+        image TEXT,
+        quantity INTEGER,
+        PRIMARY KEY(id)
+    )
+  `;
   try {
     await db.executeSql(userWishlistQuery);
+    await db.executeSql(UserCartlistQuery);
   } catch (error) {
     console.error(error);
     throw Error(`Failed to create tables`);
