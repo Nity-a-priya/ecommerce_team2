@@ -43,7 +43,9 @@ const CartList: React.FC<Props> = ({itemdata}) => {
             color="black"
             onPress={removeHandler}
           />
-          <Text style={styles.quantity}>{itemdata.quantity}</Text>
+          <Text style={[styles.quantity, {color: colors.text}]}>
+            {itemdata.quantity}
+          </Text>
           <IconButton icon="add" size="8" color="black" onPress={addHandler} />
         </View>
       </View>

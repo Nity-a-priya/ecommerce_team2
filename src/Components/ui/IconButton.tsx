@@ -1,7 +1,12 @@
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Pressable, StyleSheet, View} from 'react-native';
-
-function IconButton({icon, size, color, onPress}) {
+interface Props {
+  icon: any;
+  size: any;
+  color: any;
+  onPress: () => void;
+}
+const IconButton: React.FC<Props> = ({icon, size, color, onPress}) => {
   return (
     <Pressable
       style={({pressed}) => [styles.button, pressed && styles.pressed]}
@@ -11,7 +16,7 @@ function IconButton({icon, size, color, onPress}) {
       </View>
     </Pressable>
   );
-}
+};
 
 export default IconButton;
 
