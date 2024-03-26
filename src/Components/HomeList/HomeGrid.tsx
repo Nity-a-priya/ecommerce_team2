@@ -1,42 +1,15 @@
 import {FlatList, View, StyleSheet} from 'react-native';
 import Product from './Product';
 import ProductModel from '../../Model/ProductModel';
-import {useEffect, useState} from 'react';
-import {
-  connectToDatabase,
-  getAllWishListItems,
-  removeFromWishlist,
-  addWishlistItem,
-} from '../../Utils/SQLiteDB';
+import useWishlist from '../Hooks/UseWishlist';
 
 interface Props {
   dataList: ProductModel[];
 }
 
 const HomeGrid: React.FC<Props> = ({dataList}) => {
-  const [wishlist, setWishlist] = useState<ProductModel[]>([]);
-
-  useEffect(() => {
-    async function fetchWishlist() {
-      const db = await connectToDatabase();
-      const allItems = await getAllWishListItems(db);
-      setWishlist(allItems);
-    }
-    fetchWishlist();
-  }, [removeFromWishlist, addWishlistItem]);
-
-  const favouritesHandler = async (itemdata: ProductModel) => {
-    const db = await connectToDatabase();
-    const itemInWishlist = wishlist.some(item => item.id === itemdata.id);
-    if (itemInWishlist) {
-      await removeFromWishlist(db, itemdata);
-    } else {
-      await addWishlistItem(db, itemdata);
-    }
-    // After adding or removing from wishlist, update the wishlist state
-    const updatedWishlist = await getAllWishListItems(db);
-    setWishlist(updatedWishlist);
-  };
+  
+  const {wishlist, favouritesHandler} = useWishlist();
 
   return (
     <View style={styles.rootContainer}>

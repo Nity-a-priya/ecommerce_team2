@@ -32,8 +32,6 @@ const Product: React.FC<Props> = ({
     favouritesHandler(itemdata);
   };
 
-  console.log(isWishlist);
-
   return (
     <View
       style={[
