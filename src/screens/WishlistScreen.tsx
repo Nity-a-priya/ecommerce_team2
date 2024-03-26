@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
 import ProductModel from '../Model/ProductModel';
 import Product from '../Components/HomeList/Product';
-import {useIsFocused} from '@react-navigation/native';
 import {
   connectToDatabase,
   getAllWishListItems,
@@ -13,7 +12,6 @@ import {
 const WishlistScreen = () => {
 
   const [wishlist, setWishlist] = useState<ProductModel[]>([]);
-  const isFocused = useIsFocused();
 
   const getWishlistItems = async () => {
     const db = await connectToDatabase();
@@ -48,11 +46,11 @@ const WishlistScreen = () => {
               itemdata={item}
               wishlist={wishlist}
               favouritesHandler={favouritesHandler}
+              isWishlist = {true}
             />
           );
         }}
         keyExtractor={item => item.id.toString()}
-        numColumns={2}
       />
     </View>
   );

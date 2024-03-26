@@ -48,6 +48,7 @@ const HomeGrid: React.FC<Props> = ({dataList}) => {
               itemdata={item}
               wishlist={wishlist}
               favouritesHandler={favouritesHandler}
+              isWishlist={false}
             />
           );
         }}
