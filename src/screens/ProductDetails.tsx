@@ -1,13 +1,11 @@
 import {Image, Text, View, StyleSheet, Pressable, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import ProductModel from '../Model/ProductModel';
 import {Dimensions} from 'react-native';
 
 const ProductDetails = ({ route }: any) => {
 
-  const itemdata = route.params.productData;
+  const itemdata = route.params.itemdata;
   const {colors} = useTheme();
 
   return (

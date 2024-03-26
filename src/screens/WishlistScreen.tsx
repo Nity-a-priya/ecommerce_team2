@@ -2,7 +2,7 @@ import {StyleSheet, View, FlatList} from 'react-native';
 import Product from '../Components/HomeList/Product';
 import useWishlist from '../Components/Hooks/UseWishlist';
 
-const WishlistScreen = (prop: any) => {
+const WishlistScreen = () => {
   const {wishlist, favouritesHandler} = useWishlist();
 
   return (
@@ -12,7 +12,6 @@ const WishlistScreen = (prop: any) => {
         renderItem={({item}) => {
           return (
             <Product
-              navigation={prop.navigation}
               itemdata={item}
               wishlist={wishlist}
               favouritesHandler={favouritesHandler}

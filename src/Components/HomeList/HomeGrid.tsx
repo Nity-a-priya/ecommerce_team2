@@ -5,11 +5,10 @@ import useWishlist from '../Hooks/UseWishlist';
 import {NavigationProp} from '@react-navigation/native';
 
 interface Props {
-  navigation: NavigationProp<any>;
   dataList: ProductModel[];
 }
 
-const HomeGrid: React.FC<Props> = ({navigation, dataList}) => {
+const HomeGrid: React.FC<Props> = ({dataList}) => {
   const {wishlist, favouritesHandler} = useWishlist();
 
   return (
@@ -19,7 +18,6 @@ const HomeGrid: React.FC<Props> = ({navigation, dataList}) => {
         renderItem={({item}) => {
           return (
             <Product
-              navigation={navigation}
               itemdata={item}
               wishlist={wishlist}
               favouritesHandler={favouritesHandler}
