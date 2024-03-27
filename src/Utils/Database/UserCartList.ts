@@ -6,13 +6,7 @@ export const addCartlistItem = async (db: SQLiteDatabase, cart: CartModel) => {
      INSERT INTO UserCartlist (id, title, price, image, quantity)
      VALUES (?, ?, ?, ?, ?)
    `;
-  const values = [
-    cart.id,
-    cart.title,
-    cart.price,
-    cart.image,
-    cart.quantity,
-  ];
+  const values = [cart.id, cart.title, cart.price, cart.image, cart.quantity];
   try {
     return db.executeSql(insertQuery, values);
   } catch (error) {
@@ -37,6 +31,24 @@ export const getAllCartListItems = async (
   } catch (error) {
     console.error(error);
     throw Error('Failed to get cartlist from database');
+  }
+};
+export const updateCartItemQuantity = async (
+  db: SQLiteDatabase,
+  cartId: number,
+  newQuantity: number,
+) => {
+  const updateQuery = `
+     UPDATE UserCartlist
+     SET quantity = ?
+     WHERE id = ?
+   `;
+  const values = [newQuantity, cartId];
+  try {
+    return db.executeSql(updateQuery, values);
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to update cart item quantity');
   }
 };
 
@@ -67,7 +79,10 @@ export const removeTable = async (db: SQLiteDatabase, tableName: Table) => {
   }
 };
 
-export const removeFromCartlist = async (db: SQLiteDatabase, cart: CartModel) => {
+export const removeFromCartlist = async (
+  db: SQLiteDatabase,
+  cart: CartModel,
+) => {
   const deleteQuery = `
       DELETE FROM UserCartlist
       WHERE id = ?

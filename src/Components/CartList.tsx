@@ -6,13 +6,12 @@ import IconButton from './ui/IconButton';
 
 interface Props {
   itemdata: CartModel;
+  removeHandler: (itemdata: CartModel) => void;
+  addHandler: (itemdata: CartModel) => void;
 }
 
-const CartList: React.FC<Props> = ({itemdata}) => {
+const CartList: React.FC<Props> = ({itemdata, removeHandler, addHandler}) => {
   const {colors} = useTheme();
-
-  const removeHandler = () => {};
-  const addHandler = () => {};
 
   return (
     <View style={[styles.rootContainer, {backgroundColor: colors.card}]}>
@@ -32,7 +31,7 @@ const CartList: React.FC<Props> = ({itemdata}) => {
           </Text>
 
           <Text style={[styles.price, {color: colors.text}]}>
-            ${itemdata.price}
+            ${itemdata.price * itemdata.quantity}
           </Text>
         </View>
         <View style={styles.quantityView}>
@@ -40,12 +39,17 @@ const CartList: React.FC<Props> = ({itemdata}) => {
             icon="remove"
             size={8}
             color="black"
-            onPress={removeHandler}
+            onPress={() => removeHandler(itemdata)}
           />
           <Text style={[styles.quantity, {color: colors.text}]}>
             {itemdata.quantity}
           </Text>
-          <IconButton icon="add" size={8} color="black" onPress={addHandler} />
+          <IconButton
+            icon="add"
+            size={8}
+            color="black"
+            onPress={() => addHandler(itemdata)}
+          />
         </View>
       </View>
     </View>

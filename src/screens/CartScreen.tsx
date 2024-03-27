@@ -7,6 +7,7 @@ import CartModel from '../Model/CartModel';
 import {FlatList} from 'react-native-gesture-handler';
 import {View, StyleSheet} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
+import {updateCartItemQuantity} from '../Utils/Database/UserCartList';
 
 const CartScreen = () => {
   const [cartItems, setCartItems] = useState<CartModel[]>([]);
@@ -22,12 +23,33 @@ const CartScreen = () => {
     getCartList();
   }, [isfocused]);
 
+  const removeHandler = async (itemdata: CartModel) => {
+    const db = await connectToDatabase();
+    let quantity = itemdata.quantity;
+    if (quantity > 1) {
+      await updateCartItemQuantity(db, itemdata.id, --quantity);
+      getCartList();
+    }
+  };
+  const addHandler = async (itemdata: CartModel) => {
+    const db = await connectToDatabase();
+
+    await updateCartItemQuantity(db, itemdata.id, ++itemdata.quantity);
+    getCartList();
+  };
+
   return (
     <View style={styles.rootContainer}>
       <FlatList
         data={cartItems}
         renderItem={({item}) => {
-          return <CartList itemdata={item} />;
+          return (
+            <CartList
+              itemdata={item}
+              removeHandler={removeHandler}
+              addHandler={addHandler}
+            />
+          );
         }}
         keyExtractor={item => item.id.toString()}
       />
