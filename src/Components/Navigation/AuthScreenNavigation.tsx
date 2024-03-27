@@ -56,6 +56,7 @@ const AuthScreens = () => {
           </Tab.Navigator>
         )}
       </Stack.Screen>
+
       <Stack.Screen name="ProductDetails" component={ProductDetails} />
     </Stack.Navigator>
   );

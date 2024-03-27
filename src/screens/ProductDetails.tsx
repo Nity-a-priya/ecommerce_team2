@@ -2,13 +2,30 @@ import {Image, Text, View, StyleSheet, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
 import ImageButton from '../Components/ui/ImageButton';
-import {addCartlistItem} from '../Utils/Database/UserCartList';
+import {
+  addCartlistItem,
+  getAllCartListItems,
+} from '../Utils/Database/UserCartList';
 import CartModel from '../Model/CartModel';
 import {connectToDatabase} from '../Utils/Database/SQLiteDB';
+import Button from '../Components/ui/Button';
+import {useEffect, useLayoutEffect, useState} from 'react';
 
 const ProductDetails = ({route, navigation}: any) => {
   const itemdata = route.params.itemdata;
   const {colors} = useTheme();
+  const [isProductAdded, setProductAdded] = useState(false);
+
+  useLayoutEffect(() => {
+    const getCartList = async () => {
+      const db = await connectToDatabase();
+      const allcartItems = await getAllCartListItems(db);
+      const itemInWishlist = allcartItems.some(item => item.id === itemdata.id);
+      setProductAdded(itemInWishlist);
+      console.log(itemInWishlist);
+    };
+    getCartList();
+  }, []);
 
   const cartHandler = async () => {
     const db = await connectToDatabase();
@@ -20,9 +37,14 @@ const ProductDetails = ({route, navigation}: any) => {
       quantity: 1,
     };
     addCartlistItem(db, cartItem);
-    navigation.navigate('Cart');
+    setProductAdded(true);
+
+    console.log('Added');
   };
 
+  const gotoCartHandler = async () => {
+    navigation.navigate('Cart');
+  };
   return (
     <View style={[styles.rootContainer, {backgroundColor: colors.card}]}>
       <View style={styles.itemContainer}>
@@ -46,9 +68,16 @@ const ProductDetails = ({route, navigation}: any) => {
             ({itemdata.rating.rate})
           </Text>
         </View>
-        <ImageButton icon="cart" onPress={cartHandler}>
-          Add to Cart
-        </ImageButton>
+
+        {!isProductAdded ? (
+          <ImageButton icon="cart" onPress={cartHandler}>
+            Add to Cart
+          </ImageButton>
+        ) : (
+          <ImageButton icon="cart" onPress={gotoCartHandler}>
+            Go to Cart
+          </ImageButton>
+        )}
       </View>
     </View>
   );

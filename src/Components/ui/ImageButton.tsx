@@ -23,10 +23,11 @@ export default ImageButton;
 
 const styles = StyleSheet.create({
   button: {
+    justifyContent: 'center',
     flexDirection: 'row',
     borderRadius: 6,
-    paddingVertical: 16,
-    paddingHorizontal: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 40,
     backgroundColor: '#c30b64',
     elevation: 2,
     shadowColor: 'black',
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: 'white',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });

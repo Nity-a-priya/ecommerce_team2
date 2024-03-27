@@ -2,7 +2,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Pressable, StyleSheet, View} from 'react-native';
 interface Props {
   icon: any;
-  size: any;
+  size: number;
   color: any;
   onPress: () => void;
 }

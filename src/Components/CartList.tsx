@@ -12,7 +12,6 @@ const CartList: React.FC<Props> = ({itemdata}) => {
   const {colors} = useTheme();
 
   const removeHandler = () => {};
-
   const addHandler = () => {};
 
   return (
@@ -39,14 +38,14 @@ const CartList: React.FC<Props> = ({itemdata}) => {
         <View style={styles.quantityView}>
           <IconButton
             icon="remove"
-            size="8"
+            size={8}
             color="black"
             onPress={removeHandler}
           />
           <Text style={[styles.quantity, {color: colors.text}]}>
             {itemdata.quantity}
           </Text>
-          <IconButton icon="add" size="8" color="black" onPress={addHandler} />
+          <IconButton icon="add" size={8} color="black" onPress={addHandler} />
         </View>
       </View>
     </View>

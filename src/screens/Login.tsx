@@ -7,12 +7,12 @@ import LinearGradient from 'react-native-linear-gradient';
 const Login = () => {
   const {setStoreData} = useContext(NameContext);
   const [name, setName] = useState('');
-  
+
   const inputHandler = (value: string) => {
     setName(value);
   };
   const submitHandler = () => {
-    setStoreData('name', name);   
+    setStoreData('name', name);
   };
 
   return (

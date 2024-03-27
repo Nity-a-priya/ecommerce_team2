@@ -2,25 +2,25 @@ import {useEffect, useState} from 'react';
 
 import CartList from '../Components/CartList';
 import {connectToDatabase} from '../Utils/Database/SQLiteDB';
-import {
-  addCartlistItem,
-  getAllCartListItems,
-} from '../Utils/Database/UserCartList';
+import {getAllCartListItems} from '../Utils/Database/UserCartList';
 import CartModel from '../Model/CartModel';
 import {FlatList} from 'react-native-gesture-handler';
 import {View, StyleSheet} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 
 const CartScreen = () => {
   const [cartItems, setCartItems] = useState<CartModel[]>([]);
+  const isfocused = useIsFocused();
 
   const getCartList = async () => {
     const db = await connectToDatabase();
     const allcartItems = await getAllCartListItems(db);
     setCartItems(allcartItems);
   };
+
   useEffect(() => {
     getCartList();
-  }, [cartItems]);
+  }, [isfocused]);
 
   return (
     <View style={styles.rootContainer}>

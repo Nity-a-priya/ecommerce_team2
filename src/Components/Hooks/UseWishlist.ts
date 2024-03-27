@@ -6,9 +6,11 @@ import {
   getAllWishListItems,
   removeFromWishlist,
 } from '../../Utils/Database/UserWishList';
+import {useIsFocused} from '@react-navigation/native';
 
 const useWishlist = () => {
   const [wishlist, setWishlist] = useState<ProductModel[]>([]);
+  const isfocused = useIsFocused();
 
   useEffect(() => {
     async function fetchWishlist() {
@@ -16,8 +18,9 @@ const useWishlist = () => {
       const allItems = await getAllWishListItems(db);
       setWishlist(allItems);
     }
+
     fetchWishlist();
-  }, [wishlist]);
+  }, [isfocused]);
 
   const favouritesHandler = async (itemdata: ProductModel) => {
     const db = await connectToDatabase();
@@ -27,6 +30,7 @@ const useWishlist = () => {
     } else {
       await addWishlistItem(db, itemdata);
     }
+
     // After adding or removing from wishlist, update the wishlist state
     const updatedWishlist = await getAllWishListItems(db);
     setWishlist(updatedWishlist);
