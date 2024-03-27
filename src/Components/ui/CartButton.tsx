@@ -1,45 +1,40 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 interface Props {
   children: React.ReactNode;
-  onPress: () => void;
   icon: string;
+  onPress: () => void;
 }
 
-const ImageButton: React.FC<Props> = ({children, icon, onPress}) => {
+const CartButton: React.FC<Props> = ({children, icon, onPress}) => {
   return (
     <Pressable
       style={({pressed}) => [styles.button, pressed && styles.pressed]}
       onPress={onPress}>
-      <Ionicons style={styles.icon} name={icon} size={20} color={'white'} />
+      <FontAwesome5 style={styles.icon} name={icon} size={12} color={'white'} />
       <Text style={styles.buttonText}>{children}</Text>
     </Pressable>
   );
 };
 
-export default ImageButton;
+export default CartButton;
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    borderRadius: 6,
-    paddingVertical: 20,
-    paddingHorizontal: 35,
-    backgroundColor: '#c30b64',
+    borderRadius: 30,
+    paddingVertical: 12,
+    width: 110,
+    backgroundColor: '#0033A5',
     elevation: 2,
     shadowColor: 'black',
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    marginHorizontal: 90,
-    marginVertical: 15,
+    flexDirection: 'row',
     alignItems: 'center',
-  },
-  icon: {
-    marginRight: 6,
+    justifyContent: 'center',
   },
   pressed: {
     opacity: 0.7,
@@ -47,7 +42,10 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: 'white',
-    fontSize: 18,
+    fontSize: 12,
     fontWeight: 'bold',
+  },
+  icon: {
+    marginRight: 6,
   },
 });

@@ -31,7 +31,10 @@ const CartList: React.FC<Props> = ({itemdata, removeHandler, addHandler}) => {
           </Text>
 
           <Text style={[styles.price, {color: colors.text}]}>
-            ${itemdata.price * itemdata.quantity}
+            $
+            {(itemdata.price * itemdata.quantity).toLocaleString('en-US', {
+              minimumFractionDigits: 2,
+            })}
           </Text>
         </View>
         <View style={styles.quantityView}>
