@@ -71,16 +71,14 @@ export const getSpecificItem = async (product: Product) => {
   }
 };
 
-type Table = 'UserWishlist';
-
-export const removeTable = async (tableName: Table) => {
-  const query = `DELETE FROM ${tableName}`;
+export const removeTable = async () => {
+  const query = `DELETE FROM UserWishlist`;
   try {
     const db = await connectToDatabase();
     await db.executeSql(query);
   } catch (error) {
     console.error(error);
-    throw Error(`Failed to drop table ${tableName}`);
+    throw Error(`Failed to drop table UserWishlist`);
   }
 };
 

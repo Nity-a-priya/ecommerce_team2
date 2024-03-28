@@ -5,20 +5,21 @@ import {
   addWishlistItem,
   getAllWishListItems,
   removeFromWishlist,
+  removeTable,
 } from '../../Utils/Database/WishListDB';
 
 const useWishlist = () => {
   const [wishlist, setWishlist] = useState<ProductModel[]>([]);
   const isfocused = useIsFocused();
 
-  useEffect(() => {
-    async function fetchWishlist() {
-      const allItems = await getAllWishListItems();
-      setWishlist(allItems);
-    }
+  async function fetchWishlist() {
+    const allItems = await getAllWishListItems();
+    setWishlist(allItems);
+  }
 
+  useEffect(() => {
     fetchWishlist();
-  }, [isfocused]);
+  }, [wishlist]);
 
   const favouritesHandler = async (itemdata: ProductModel) => {
     const itemInWishlist = wishlist.some(item => item.id === itemdata.id);
@@ -33,7 +34,14 @@ const useWishlist = () => {
     setWishlist(updatedWishlist);
   };
 
-  return {wishlist, favouritesHandler};
+  async function deleteWishList() {
+    await removeTable();
+
+    const updatedWishlist = await getAllWishListItems();
+    setWishlist(updatedWishlist);
+  }
+
+  return {wishlist, favouritesHandler, deleteWishList};
 };
 
 export default useWishlist;

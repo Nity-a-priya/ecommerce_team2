@@ -4,7 +4,7 @@ import Product from '../Components/HomeList/Product';
 import useWishlist from '../Components/Hooks/useWishlist';
 
 const WishlistScreen = () => {
-  const {wishlist, favouritesHandler} = useWishlist();
+  const {wishlist, favouritesHandler, deleteWishList} = useWishlist();
 
   return (
     <View style={styles.rootContainer}>
