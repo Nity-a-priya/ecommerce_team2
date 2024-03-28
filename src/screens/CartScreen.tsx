@@ -9,13 +9,14 @@ import CartModel from '../Model/CartModel';
 import {useIsFocused} from '@react-navigation/native';
 import {updateCartItemQuantity} from '../Utils/Database/UserCartList';
 import CartButton from '../Components/ui/CartButton';
+import CustomModal from '../Components/PopupModel/CustomModal';
 
 const CartScreen = () => {
   const {colors} = useTheme();
-
   const [cartItems, setCartItems] = useState<CartModel[]>([]);
   const isfocused = useIsFocused();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const getCartList = async () => {
     const db = await connectToDatabase();
@@ -49,7 +50,9 @@ const CartScreen = () => {
     getCartList();
   };
 
-  const cartHandler = () => {};
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   return (
     <View style={styles.rootContainer}>
@@ -91,10 +94,12 @@ const CartScreen = () => {
             minimumFractionDigits: 2,
           })}
         </Text>
-        <CartButton onPress={cartHandler} icon="sign-out-alt">
+
+        <CartButton onPress={toggleModal} icon="sign-out-alt">
           Check Out
         </CartButton>
       </View>
+      <CustomModal isVisible={isModalVisible} onClose={toggleModal} />
     </View>
   );
 };
