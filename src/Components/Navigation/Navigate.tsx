@@ -3,11 +3,11 @@ import {
   DefaultTheme,
   NavigationContainer,
 } from '@react-navigation/native';
-import {NameContext} from '../../Utils/name-context';
+import {NameContext} from '../../Utils/asyncStorageContext';
 import React, {useContext, useEffect, useLayoutEffect} from 'react';
 import AuthScreens from './AuthScreenNavigation';
 import UnAuthScreen from './UnauthScreenNavigation';
-import {Appearance, useColorScheme, ColorSchemeName } from 'react-native';
+import {Appearance, useColorScheme, ColorSchemeName} from 'react-native';
 
 const Navigate = () => {
   const {name, setStoreData, getStoreData} = useContext(NameContext);

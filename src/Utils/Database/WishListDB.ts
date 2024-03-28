@@ -1,5 +1,4 @@
 // TODO : Name change to camelCase
-import {SQLiteDatabase} from 'react-native-sqlite-storage';
 import Product from '../../Model/ProductModel';
 import {connectToDatabase} from './SQLiteDB';
 

@@ -20,7 +20,7 @@ interface Props {
 
 const NameContextProvider: React.FC<Props> = ({children}) => {
   // TODO : {[key: string]: string} can be written as Record<string, string>
-  const [retrievedData, setRetrievedData] = useState<{[key: string]: string}>(
+  const [retrievedData, setRetrievedData] = useState<Record<string, string>>(
     {},
   );
 

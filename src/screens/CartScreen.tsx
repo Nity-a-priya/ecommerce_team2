@@ -1,14 +1,14 @@
 // TODO : React must be in scope
-import {useEffect, useState} from 'react';
-import {useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text, FlatList} from 'react-native';
+import {useIsFocused, useTheme} from '@react-navigation/native';
 
-import CartList from '../Components/CartList';
-import {connectToDatabase} from '../Utils/Database/SQLiteDB';
-import {getAllCartListItems} from '../Utils/Database/UserCartList';
+import {
+  getAllCartListItems,
+  updateCartItemQuantity,
+} from '../Utils/Database/CartDB';
 import CartModel from '../Model/CartModel';
-import {useIsFocused} from '@react-navigation/native';
-import {updateCartItemQuantity} from '../Utils/Database/UserCartList';
+import CartList from '../Components/CartList';
 import CartButton from '../Components/ui/CartButton';
 import CustomModal from '../Components/PopupModel/CustomModal';
 
@@ -24,12 +24,12 @@ const CartScreen = () => {
     setCartItems(allcartItems);
 
     // TODO : try not to declare variables with same name in upper scopes
-    const totalPrice = allcartItems.reduce(
+    const cartTotalValue = allcartItems.reduce(
       (currentTotal, currentItem) =>
         currentTotal + currentItem.price * currentItem.quantity,
       0,
     );
-    setTotalPrice(totalPrice);
+    setTotalPrice(cartTotalValue);
   };
 
   useEffect(() => {
@@ -43,9 +43,8 @@ const CartScreen = () => {
       getCartList();
     }
   };
-  const addHandler = async (itemdata: CartModel) => {
-    const db = await connectToDatabase();
 
+  const addHandler = async (itemdata: CartModel) => {
     await updateCartItemQuantity(itemdata.id, ++itemdata.quantity);
     getCartList();
   };

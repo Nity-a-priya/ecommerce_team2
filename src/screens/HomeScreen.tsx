@@ -1,5 +1,5 @@
 import {Text, StyleSheet, ImageBackground, View} from 'react-native';
-import {NameContext} from '../Utils/name-context';
+import {NameContext} from '../Utils/asyncStorageContext';
 import {useContext, useEffect, useState} from 'react';
 import HomeGrid from '../Components/HomeList/HomeGrid';
 import ProductModel from '../Model/ProductModel';
@@ -8,13 +8,13 @@ const HomeScreen = () => {
   const [dataList, setDatalist] = useState<ProductModel[]>([]);
   const {name, getStoreData} = useContext(NameContext);
 
-  const getAPIData = async () => {
-    const url = 'https://fakestoreapi.com/products';
-    const response = await fetch(url);
-    const result: ProductModel[] = await response.json();
-    setDatalist(result);
-  };
   useEffect(() => {
+    const getAPIData = async () => {
+      const url = 'https://fakestoreapi.com/products';
+      const response = await fetch(url);
+      const result: ProductModel[] = await response.json();
+      setDatalist(result);
+    };
     getAPIData();
     getStoreData('name');
   }, []); // TODO : use memorised function that will not change
@@ -22,7 +22,7 @@ const HomeScreen = () => {
   return (
     <View style={styles.outerScreen}>
       <Text style={styles.text}>Hey {name.name} !!</Text>
-      <HomeGrid dataList={dataList}/>
+      <HomeGrid dataList={dataList} />
     </View>
   );
 };

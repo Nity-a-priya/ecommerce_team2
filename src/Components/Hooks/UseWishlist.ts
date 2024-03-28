@@ -5,7 +5,7 @@ import {
   addWishlistItem,
   getAllWishListItems,
   removeFromWishlist,
-} from '../../Utils/Database/UserWishList';
+} from '../../Utils/Database/WishListDB';
 import {useIsFocused} from '@react-navigation/native';
 
 const useWishlist = () => {

@@ -1,31 +1,17 @@
 // TODO : import react, remove unused imports
-import {Image, Text, View, StyleSheet, Platform} from 'react-native';
-import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Image, Platform, StyleSheet, Text, View} from 'react-native';
+import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import ImageButton from '../Components/ui/ImageButton';
-import {
-  addCartlistItem,
-  getAllCartListItems,
-} from '../Utils/Database/UserCartList';
 import CartModel from '../Model/CartModel';
-// TODO : remove unused imports, organise them based on priority (use VS code organize)
-import {useEffect, useState} from 'react';
+import useCartList from '../Components/Hooks/useCartList';
+import {addCartlistItem} from '../Utils/Database/CartDB';
 
 const ProductDetails = ({route, navigation}: any) => {
   const itemdata = route.params.itemdata;
   const {colors} = useTheme();
-  const [isProductAdded, setProductAdded] = useState(false);
-
-  // TODO : change layout effect to useEffect, extract int hook if possible
-  useEffect(() => {
-    const getCartList = async () => {
-      const allcartItems = await getAllCartListItems();
-      const itemInWishlist = allcartItems.some(item => item.id === itemdata.id);
-      setProductAdded(itemInWishlist);
-      console.log(itemInWishlist);
-    };
-    getCartList();
-  }, []);
+  const {isProductAdded, setProductAdded} = useCartList(itemdata);
 
   const cartHandler = async () => {
     const cartItem: CartModel = {
@@ -37,7 +23,6 @@ const ProductDetails = ({route, navigation}: any) => {
     };
     addCartlistItem(cartItem);
     setProductAdded(true);
-
     console.log('Added');
   };
 

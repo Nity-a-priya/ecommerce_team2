@@ -1,7 +1,7 @@
-// TODO : include react for files with jsx
-import { StyleSheet, View, FlatList } from 'react-native';
+import React from 'react';
+import {StyleSheet, View, FlatList} from 'react-native';
 import Product from '../Components/HomeList/Product';
-import useWishlist from '../Components/Hooks/UseWishlist';
+import useWishlist from '../Components/Hooks/useWishlist';
 
 const WishlistScreen = () => {
   const {wishlist, favouritesHandler} = useWishlist();

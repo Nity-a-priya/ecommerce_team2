@@ -1,6 +1,6 @@
 import {useContext, useState} from 'react';
 import {StyleSheet, TextInput} from 'react-native';
-import {NameContext} from '../Utils/name-context';
+import {NameContext} from '../Utils/asyncStorageContext';
 import Button from '../Components/ui/Button';
 import LinearGradient from 'react-native-linear-gradient';
 

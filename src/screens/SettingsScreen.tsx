@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useContext, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
-import {NameContext} from '../Utils/name-context';
+import {NameContext} from '../Utils/asyncStorageContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {TextInput} from 'react-native-gesture-handler';
 
