@@ -1,8 +1,8 @@
 import {useContext, useState} from 'react';
 import {StyleSheet, TextInput} from 'react-native';
-import {NameContext} from '../Utils/asyncStorageContext';
-import Button from '../Components/ui/Button';
 import LinearGradient from 'react-native-linear-gradient';
+import Button from '../Components/ui/Button';
+import {NameContext} from '../Utils/asyncStorageContext';
 
 const Login = () => {
   const {setStoreData} = useContext(NameContext);

@@ -1,7 +1,7 @@
-import {FlatList, View, StyleSheet} from 'react-native';
-import Product from './Product';
+import {FlatList, StyleSheet, View} from 'react-native';
 import ProductModel from '../../Model/ProductModel';
 import useWishlist from '../Hooks/useWishlist';
+import Product from './Product';
 
 interface Props {
   dataList: ProductModel[];

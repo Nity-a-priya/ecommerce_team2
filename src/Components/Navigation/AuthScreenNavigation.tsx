@@ -1,12 +1,12 @@
-import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from '../../screens/HomeScreen';
-import WishlistScreen from '../../screens/WishlistScreen';
+import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import CartScreen from '../../screens/CartScreen';
-import SettingsScreen from '../../screens/SettingsScreen';
+import HomeScreen from '../../screens/HomeScreen';
 import ProductDetails from '../../screens/ProductDetails';
+import SettingsScreen from '../../screens/SettingsScreen';
+import WishlistScreen from '../../screens/WishlistScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

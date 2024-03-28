@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import {Text, StyleSheet, Image, View, Platform} from 'react-native';
+import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 
 import CartModel from '../Model/CartModel';
 import IconButton from './ui/IconButton';

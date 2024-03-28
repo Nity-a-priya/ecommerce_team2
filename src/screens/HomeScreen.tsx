@@ -1,21 +1,28 @@
-import {Text, StyleSheet, ImageBackground, View} from 'react-native';
-import {NameContext} from '../Utils/asyncStorageContext';
 import {useContext, useEffect, useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import HomeGrid from '../Components/HomeList/HomeGrid';
 import ProductModel from '../Model/ProductModel';
+import ProductService from '../Service/ProductService';
+import {NameContext} from '../Utils/asyncStorageContext';
 
 const HomeScreen = () => {
   const [dataList, setDatalist] = useState<ProductModel[]>([]);
   const {name, getStoreData} = useContext(NameContext);
+  const productService = new ProductService();
+
+  function getProductList() {
+    productService
+      .fetchProduct()
+      .then(result => {
+        setDatalist(result);
+      })
+      .catch(error => {
+        console.error('Error fetching employees:', error);
+      });
+  }
 
   useEffect(() => {
-    const getAPIData = async () => {
-      const url = 'https://fakestoreapi.com/products';
-      const response = await fetch(url);
-      const result: ProductModel[] = await response.json();
-      setDatalist(result);
-    };
-    getAPIData();
+    getProductList();
     getStoreData('name');
   }, []); // TODO : use memorised function that will not change
 

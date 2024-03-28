@@ -1,16 +1,16 @@
 // TODO : React must be in scope
-import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, FlatList} from 'react-native';
 import {useIsFocused, useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 
+import CartList from '../Components/CartList';
+import CustomModal from '../Components/PopupModel/CustomModal';
+import CartButton from '../Components/ui/CartButton';
+import CartModel from '../Model/CartModel';
 import {
   getAllCartListItems,
   updateCartItemQuantity,
 } from '../Utils/Database/CartDB';
-import CartModel from '../Model/CartModel';
-import CartList from '../Components/CartList';
-import CartButton from '../Components/ui/CartButton';
-import CustomModal from '../Components/PopupModel/CustomModal';
 
 const CartScreen = () => {
   const {colors} = useTheme();

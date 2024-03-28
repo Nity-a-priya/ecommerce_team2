@@ -1,17 +1,16 @@
-import React from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useContext, useState} from 'react';
 import {
-  Text,
+  Button,
   StyleSheet,
+  Text,
+  TouchableOpacity,
   View,
   useColorScheme,
-  Button,
-  TouchableOpacity,
 } from 'react-native';
-import {useContext, useState} from 'react';
-import {useTheme} from '@react-navigation/native';
-import {NameContext} from '../Utils/asyncStorageContext';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {TextInput} from 'react-native-gesture-handler';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {NameContext} from '../Utils/asyncStorageContext';
 
 const SettingsScreen = () => {
   const {colors} = useTheme();

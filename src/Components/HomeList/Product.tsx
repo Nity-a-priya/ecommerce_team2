@@ -1,10 +1,17 @@
-import {Image, Text, View, StyleSheet, Pressable, Platform} from 'react-native';
+import {useNavigation, useTheme} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {
+  Dimensions,
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
-import {useTheme, useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProductModel from '../../Model/ProductModel';
-import {Dimensions} from 'react-native';
-import {StackNavigationProp} from '@react-navigation/stack';
 
 type RootStackParamList = {
   ProductDetails: {itemdata: ProductModel};

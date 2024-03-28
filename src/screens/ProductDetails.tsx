@@ -1,11 +1,11 @@
 // TODO : import react, remove unused imports
 import {useTheme} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
+import useCartList from '../Components/Hooks/useCartList';
 import ImageButton from '../Components/ui/ImageButton';
 import CartModel from '../Model/CartModel';
-import useCartList from '../Components/Hooks/useCartList';
 import {addCartlistItem} from '../Utils/Database/CartDB';
 
 const ProductDetails = ({route, navigation}: any) => {

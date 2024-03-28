@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import Product from '../Components/HomeList/Product';
 import useWishlist from '../Components/Hooks/useWishlist';
 
