@@ -1,4 +1,5 @@
-import {SQLiteDatabase} from 'react-native-sqlite-storage';
+// TODO : Name change to camelCase
+import { SQLiteDatabase } from 'react-native-sqlite-storage';
 import CartModel from '../../Model/CartModel';
 
 export const addCartlistItem = async (db: SQLiteDatabase, cart: CartModel) => {

@@ -1,3 +1,4 @@
+// TODO : Name change to camelCase
 import {
   SQLiteDatabase,
 } from 'react-native-sqlite-storage';

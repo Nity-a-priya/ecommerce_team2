@@ -17,7 +17,7 @@ const HomeScreen = () => {
   useEffect(() => {
     getAPIData();
     getStoreData('name');
-  }, []);
+  }, []); // TODO : use memorised function that will not change
 
   return (
     <View style={styles.outerScreen}>

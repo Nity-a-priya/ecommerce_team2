@@ -1,4 +1,5 @@
-import {StyleSheet, View, FlatList} from 'react-native';
+// TODO : include react for files with jsx
+import { StyleSheet, View, FlatList } from 'react-native';
 import Product from '../Components/HomeList/Product';
 import useWishlist from '../Components/Hooks/UseWishlist';
 

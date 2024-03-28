@@ -1,4 +1,5 @@
-import {Image, Text, View, StyleSheet, Platform} from 'react-native';
+// TODO : import react, remove unused imports
+import { Image, Text, View, StyleSheet, Platform } from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
 import ImageButton from '../Components/ui/ImageButton';
@@ -7,7 +8,8 @@ import {
   getAllCartListItems,
 } from '../Utils/Database/UserCartList';
 import CartModel from '../Model/CartModel';
-import {connectToDatabase} from '../Utils/Database/SQLiteDB';
+import { connectToDatabase } from '../Utils/Database/SQLiteDB';
+// TODO : remove unused imports, organise them based on priority (use VS code organize)
 import Button from '../Components/ui/Button';
 import {useEffect, useLayoutEffect, useState} from 'react';
 
@@ -16,6 +18,7 @@ const ProductDetails = ({route, navigation}: any) => {
   const {colors} = useTheme();
   const [isProductAdded, setProductAdded] = useState(false);
 
+  // TODO : change layout effect to useEffect, extract int hook if possible
   useLayoutEffect(() => {
     const getCartList = async () => {
       const db = await connectToDatabase();
