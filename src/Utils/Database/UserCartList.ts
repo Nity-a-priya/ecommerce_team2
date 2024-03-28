@@ -1,14 +1,16 @@
 // TODO : Name change to camelCase
-import { SQLiteDatabase } from 'react-native-sqlite-storage';
+import {SQLiteDatabase} from 'react-native-sqlite-storage';
 import CartModel from '../../Model/CartModel';
+import {connectToDatabase} from './SQLiteDB';
 
-export const addCartlistItem = async (db: SQLiteDatabase, cart: CartModel) => {
+export const addCartlistItem = async (cart: CartModel) => {
   const insertQuery = `
      INSERT INTO UserCartlist (id, title, price, image, quantity)
      VALUES (?, ?, ?, ?, ?)
    `;
   const values = [cart.id, cart.title, cart.price, cart.image, cart.quantity];
   try {
+    const db = await connectToDatabase();
     return db.executeSql(insertQuery, values);
   } catch (error) {
     console.error(error);
@@ -16,11 +18,10 @@ export const addCartlistItem = async (db: SQLiteDatabase, cart: CartModel) => {
   }
 };
 
-export const getAllCartListItems = async (
-  db: SQLiteDatabase,
-): Promise<CartModel[]> => {
+export const getAllCartListItems = async (): Promise<CartModel[]> => {
   try {
     const cartlist: CartModel[] = [];
+    const db = await connectToDatabase();
     const results = await db.executeSql('SELECT * FROM UserCartlist');
     results?.forEach(result => {
       for (let index = 0; index < result.rows.length; index++) {
@@ -35,7 +36,6 @@ export const getAllCartListItems = async (
   }
 };
 export const updateCartItemQuantity = async (
-  db: SQLiteDatabase,
   cartId: number,
   newQuantity: number,
 ) => {
@@ -46,6 +46,7 @@ export const updateCartItemQuantity = async (
    `;
   const values = [newQuantity, cartId];
   try {
+    const db = await connectToDatabase();
     return db.executeSql(updateQuery, values);
   } catch (error) {
     console.error(error);
@@ -53,9 +54,10 @@ export const updateCartItemQuantity = async (
   }
 };
 
-export const getSpecificItem = async (db: SQLiteDatabase, cart: CartModel) => {
+export const getSpecificItem = async (cart: CartModel) => {
   const query = `SELECT * FROM UserCartlist WHERE id = ${cart.id}`;
   try {
+    const db = await connectToDatabase();
     const results = await db.executeSql(query);
     if (results[0]?.rows?.length) {
       return results[0].rows.item(0);
@@ -70,9 +72,10 @@ export const getSpecificItem = async (db: SQLiteDatabase, cart: CartModel) => {
 
 type Table = 'UserCartlist';
 
-export const removeTable = async (db: SQLiteDatabase, tableName: Table) => {
+export const removeTable = async (tableName: Table) => {
   const query = `DELETE FROM ${tableName}`;
   try {
+    const db = await connectToDatabase();
     await db.executeSql(query);
   } catch (error) {
     console.error(error);
@@ -80,16 +83,14 @@ export const removeTable = async (db: SQLiteDatabase, tableName: Table) => {
   }
 };
 
-export const removeFromCartlist = async (
-  db: SQLiteDatabase,
-  cart: CartModel,
-) => {
+export const removeFromCartlist = async (cart: CartModel) => {
   const deleteQuery = `
       DELETE FROM UserCartlist
       WHERE id = ?
     `;
   const values = [cart.id];
   try {
+    const db = await connectToDatabase();
     return db.executeSql(deleteQuery, values);
   } catch (error) {
     console.error(error);

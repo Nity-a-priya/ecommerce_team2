@@ -15,7 +15,7 @@ const useWishlist = () => {
   useEffect(() => {
     async function fetchWishlist() {
       const db = await connectToDatabase();
-      const allItems = await getAllWishListItems(db);
+      const allItems = await getAllWishListItems();
       setWishlist(allItems);
     }
 
@@ -26,13 +26,13 @@ const useWishlist = () => {
     const db = await connectToDatabase();
     const itemInWishlist = wishlist.some(item => item.id === itemdata.id);
     if (itemInWishlist) {
-      await removeFromWishlist(db, itemdata);
+      await removeFromWishlist(itemdata);
     } else {
-      await addWishlistItem(db, itemdata);
+      await addWishlistItem(itemdata);
     }
 
     // After adding or removing from wishlist, update the wishlist state
-    const updatedWishlist = await getAllWishListItems(db);
+    const updatedWishlist = await getAllWishListItems();
     setWishlist(updatedWishlist);
   };
 

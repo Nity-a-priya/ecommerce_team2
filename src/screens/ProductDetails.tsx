@@ -1,5 +1,5 @@
 // TODO : import react, remove unused imports
-import { Image, Text, View, StyleSheet, Platform } from 'react-native';
+import {Image, Text, View, StyleSheet, Platform} from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
 import {useTheme} from '@react-navigation/native';
 import ImageButton from '../Components/ui/ImageButton';
@@ -8,10 +8,8 @@ import {
   getAllCartListItems,
 } from '../Utils/Database/UserCartList';
 import CartModel from '../Model/CartModel';
-import { connectToDatabase } from '../Utils/Database/SQLiteDB';
 // TODO : remove unused imports, organise them based on priority (use VS code organize)
-import Button from '../Components/ui/Button';
-import {useEffect, useLayoutEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const ProductDetails = ({route, navigation}: any) => {
   const itemdata = route.params.itemdata;
@@ -19,10 +17,9 @@ const ProductDetails = ({route, navigation}: any) => {
   const [isProductAdded, setProductAdded] = useState(false);
 
   // TODO : change layout effect to useEffect, extract int hook if possible
-  useLayoutEffect(() => {
+  useEffect(() => {
     const getCartList = async () => {
-      const db = await connectToDatabase();
-      const allcartItems = await getAllCartListItems(db);
+      const allcartItems = await getAllCartListItems();
       const itemInWishlist = allcartItems.some(item => item.id === itemdata.id);
       setProductAdded(itemInWishlist);
       console.log(itemInWishlist);
@@ -31,7 +28,6 @@ const ProductDetails = ({route, navigation}: any) => {
   }, []);
 
   const cartHandler = async () => {
-    const db = await connectToDatabase();
     const cartItem: CartModel = {
       id: itemdata.id,
       title: itemdata.title,
@@ -39,7 +35,7 @@ const ProductDetails = ({route, navigation}: any) => {
       image: itemdata.image,
       quantity: 1,
     };
-    addCartlistItem(db, cartItem);
+    addCartlistItem(cartItem);
     setProductAdded(true);
 
     console.log('Added');

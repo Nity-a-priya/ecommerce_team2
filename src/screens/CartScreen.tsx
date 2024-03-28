@@ -20,8 +20,7 @@ const CartScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const getCartList = async () => {
-    const db = await connectToDatabase();
-    const allcartItems = await getAllCartListItems(db);
+    const allcartItems = await getAllCartListItems();
     setCartItems(allcartItems);
 
     // TODO : try not to declare variables with same name in upper scopes
@@ -38,17 +37,16 @@ const CartScreen = () => {
   }, [isfocused]);
 
   const removeHandler = async (itemdata: CartModel) => {
-    const db = await connectToDatabase();
     let quantity = itemdata.quantity;
     if (quantity > 1) {
-      await updateCartItemQuantity(db, itemdata.id, --quantity);
+      await updateCartItemQuantity(itemdata.id, --quantity);
       getCartList();
     }
   };
   const addHandler = async (itemdata: CartModel) => {
     const db = await connectToDatabase();
 
-    await updateCartItemQuantity(db, itemdata.id, ++itemdata.quantity);
+    await updateCartItemQuantity(itemdata.id, ++itemdata.quantity);
     getCartList();
   };
 
