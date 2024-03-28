@@ -1,4 +1,3 @@
-// TODO : import react, remove unused imports
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Image, Platform, StyleSheet, Text, View} from 'react-native';

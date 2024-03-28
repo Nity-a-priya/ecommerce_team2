@@ -1,4 +1,3 @@
-// TODO : filename can be changed to follow camelCase
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState, createContext, ReactNode} from 'react';
 
@@ -19,7 +18,6 @@ interface Props {
 }
 
 const NameContextProvider: React.FC<Props> = ({children}) => {
-  // TODO : {[key: string]: string} can be written as Record<string, string>
   const [retrievedData, setRetrievedData] = useState<Record<string, string>>(
     {},
   );

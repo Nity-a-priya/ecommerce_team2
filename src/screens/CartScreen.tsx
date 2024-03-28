@@ -1,4 +1,3 @@
-// TODO : React must be in scope
 import {useIsFocused, useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
@@ -23,7 +22,6 @@ const CartScreen = () => {
     const allcartItems = await getAllCartListItems();
     setCartItems(allcartItems);
 
-    // TODO : try not to declare variables with same name in upper scopes
     const cartTotalValue = allcartItems.reduce(
       (currentTotal, currentItem) =>
         currentTotal + currentItem.price * currentItem.quantity,

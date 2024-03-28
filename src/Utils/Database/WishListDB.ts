@@ -1,4 +1,3 @@
-// TODO : Name change to camelCase
 import Product from '../../Model/ProductModel';
 import {connectToDatabase} from './SQLiteDB';
 
