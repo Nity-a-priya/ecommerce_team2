@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Modal, TouchableOpacity, StyleSheet} from 'react-native';
-
+import CustomButton from '../ui/Button';
 interface Props {
   isVisible: boolean;
   onClose: () => void;
@@ -17,9 +17,9 @@ const CustomModal: React.FC<Props> = ({isVisible, onClose}) => {
         <View style={styles.modalContent}>
           <Text style={styles.text}>Order Placed Successfully</Text>
 
-          <TouchableOpacity style={styles.button} onPress={onClose}>
-            <Text style={styles.buttonText}>Ok</Text>
-          </TouchableOpacity>
+          <CustomButton onPress={onClose} customStyles={styles.button}>
+            Ok
+          </CustomButton>
         </View>
       </View>
     </Modal>
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
 
   button: {
     borderRadius: 20,
-    backgroundColor: 'green',
     width: 100,
     paddingVertical: 5,
     marginTop: 30,

@@ -11,11 +11,12 @@ import {
 import {TextInput} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {NameContext} from '../Utils/asyncStorageContext';
+import CustomButton from '../Components/ui/Button';
 
 const SettingsScreen = () => {
   const {colors} = useTheme();
   const scheme = useColorScheme();
-  const {name, getStoreData, setStoreData} = useContext(NameContext);
+  const {name, setStoreData} = useContext(NameContext);
   const [isInputDisplay, setInputDisplay] = useState(false);
   const [newName, setNewName] = useState('');
 
@@ -60,13 +61,13 @@ const SettingsScreen = () => {
       <View>
         <Text style={styles.text}> Your Name is : - {name.name}</Text>
 
-        <View style={styles.buttonContainer}>
-          <Button
-            title="edit your name"
-            onPress={editNameHandler}
-            disabled={isInputDisplay}
-          />
-        </View>
+        <CustomButton
+          onPress={editNameHandler}
+          customStyles={styles.editbutton}
+          disabled={isInputDisplay}>
+          Edit Your Name
+        </CustomButton>
+
         {isInputDisplay && (
           <View>
             <TextInput
@@ -75,15 +76,16 @@ const SettingsScreen = () => {
               value={newName}
               onChangeText={textHandler}
             />
-
             <View style={styles.buttonRow}>
-              <TouchableOpacity style={styles.button} onPress={cancelHandler}>
-                <Text style={styles.buttonText}>Cancel</Text>
-              </TouchableOpacity>
+              <CustomButton
+                onPress={cancelHandler}
+                customStyles={styles.button}>
+                Cancel
+              </CustomButton>
 
-              <TouchableOpacity style={styles.button} onPress={saveHandler}>
-                <Text style={styles.buttonText}>Save</Text>
-              </TouchableOpacity>
+              <CustomButton onPress={saveHandler} customStyles={styles.button}>
+                Save
+              </CustomButton>
             </View>
           </View>
         )}
@@ -112,11 +114,17 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 75,
   },
+  editbutton: {
+    marginHorizontal: 80,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+
   button: {
-    borderRadius: 20,
-    backgroundColor: 'blue', // Change to your desired color
+    borderRadius: 10,
     paddingHorizontal: 20,
     paddingVertical: 10,
     marginHorizontal: 5,
@@ -133,6 +141,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 80,
     marginVertical: 20,
     paddingLeft: 10,
-    height: 45,
+    fontSize: 18,
   },
 });

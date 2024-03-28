@@ -4,13 +4,27 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 interface Props {
   children: React.ReactNode;
   onPress: () => void;
+  customStyles?: {};
+  disabled?: boolean;
 }
 
-const Button: React.FC<Props> = ({children, onPress}) => {
+const Button: React.FC<Props> = ({
+  children,
+  onPress,
+  customStyles,
+  disabled,
+}) => {
+  const buttonOpacity = disabled ? 0.4 : 1;
   return (
     <Pressable
-      style={({pressed}) => [styles.button, pressed && styles.pressed]}
-      onPress={onPress}>
+      style={({pressed}) => [
+        styles.button,
+        pressed && styles.pressed,
+        customStyles,
+        {opacity: buttonOpacity},
+      ]}
+      onPress={onPress}
+      disabled={disabled}>
       <View>
         <Text style={styles.buttonText}>{children}</Text>
       </View>
