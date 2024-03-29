@@ -6,6 +6,7 @@ import useCartList from '../Components/Hooks/useCartList';
 import ImageButton from '../Components/ui/ImageButton';
 import CartModel from '../Model/CartModel';
 import {addCartlistItem} from '../Utils/Database/CartDB';
+import CustomButton from '../Components/ui/Button';
 
 const ProductDetails = ({route, navigation}: any) => {
   const itemdata = route.params.itemdata;
@@ -53,13 +54,15 @@ const ProductDetails = ({route, navigation}: any) => {
         </View>
 
         {!isProductAdded ? (
-          <ImageButton icon="cart" onPress={cartHandler}>
+          <CustomButton onPress={cartHandler} customStyles={styles.button}>
             Add to Cart
-          </ImageButton>
+          </CustomButton>
         ) : (
-          <ImageButton icon="cart" onPress={gotoCartHandler}>
+          <CustomButton
+            onPress={gotoCartHandler}
+            customStyles={styles.gotobutton}>
             Go to Cart
-          </ImageButton>
+          </CustomButton>
         )}
       </View>
     </View>
@@ -113,5 +116,22 @@ const styles = StyleSheet.create({
   ratingNumber: {
     fontSize: 15,
     fontWeight: '300',
+  },
+  button: {
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginHorizontal: 5,
+    width: 200,
+    height: 50,
+  },
+  gotobutton: {
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginHorizontal: 5,
+    backgroundColor: 'gray',
+    width: 200,
+    height: 50,
   },
 });
