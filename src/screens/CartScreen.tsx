@@ -6,23 +6,18 @@ import CartList from '../Components/CartList';
 import CustomModal from '../Components/PopupModel/CustomModal';
 import CartButton from '../Components/ui/CartButton';
 import CartModel from '../Model/CartModel';
-import {
-  getAllCartListItems,
-  updateCartItemQuantity,
-} from '../Utils/Database/CartDB';
+
+import useCartDatabase from '../Components/Hooks/useCartDatabase';
 
 const CartScreen = () => {
   const {colors} = useTheme();
-  const [cartItems, setCartItems] = useState<CartModel[]>([]);
-  const isfocused = useIsFocused();
   const [totalPrice, setTotalPrice] = useState(0);
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const getCartList = async () => {
-    const allcartItems = await getAllCartListItems();
-    setCartItems(allcartItems);
+  const {cartItems, updateQuantity, clearCartList} = useCartDatabase();
 
-    const cartTotalValue = allcartItems.reduce(
+  const getCartList = async () => {
+    const cartTotalValue = cartItems.reduce(
       (currentTotal, currentItem) =>
         currentTotal + currentItem.price * currentItem.quantity,
       0,
@@ -30,25 +25,28 @@ const CartScreen = () => {
     setTotalPrice(cartTotalValue);
   };
 
-  useEffect(() => {
-    getCartList();
-  }, [isfocused]);
-
   const removeHandler = async (itemdata: CartModel) => {
     let quantity = itemdata.quantity;
     if (quantity > 1) {
-      await updateCartItemQuantity(itemdata.id, --quantity);
+      updateQuantity(itemdata.id, --quantity);
       getCartList();
     }
   };
 
   const addHandler = async (itemdata: CartModel) => {
-    await updateCartItemQuantity(itemdata.id, ++itemdata.quantity);
+    updateQuantity(itemdata.id, ++itemdata.quantity);
     getCartList();
   };
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+  };
+
+  const closeButtonHandler = () => {
+    setModalVisible(!isModalVisible);
+    clearCartList();
+    setTotalPrice(0);
+    console.log('CLOSE');
   };
 
   return (
@@ -66,37 +64,47 @@ const CartScreen = () => {
           );
         }}
         keyExtractor={item => item.id.toString()}
-        ListFooterComponent={() => (
-          <View style={styles.listFooter}>
-            <Text style={styles.footerText}>
-              Subtotal:{' '}
-              <Text style={[styles.subtotalPrice, {color: colors.text}]}>
-                $
-                {totalPrice.toLocaleString('en-US', {minimumFractionDigits: 2})}
-              </Text>
-            </Text>
-            <Text style={styles.footerText}>
-              Taxes:{' '}
-              <Text style={[styles.subtotalPrice, {color: colors.text}]}>
-                $40
-              </Text>
-            </Text>
-          </View>
-        )}
+        ListFooterComponent={
+          cartItems.length > 0
+            ? () => (
+                <View style={styles.listFooter}>
+                  <Text style={styles.footerText}>
+                    Subtotal:{' '}
+                    <Text style={[styles.subtotalPrice, {color: colors.text}]}>
+                      $
+                      {totalPrice.toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                      })}
+                    </Text>
+                  </Text>
+                  <Text style={styles.footerText}>
+                    Taxes:{' '}
+                    <Text style={[styles.subtotalPrice, {color: colors.text}]}>
+                      $40
+                    </Text>
+                  </Text>
+                </View>
+              )
+            : null
+        }
       />
-      <View style={styles.footer}>
-        <Text style={styles.cartTotal}>
-          $
-          {(totalPrice + 40).toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-          })}
-        </Text>
 
-        <CartButton onPress={toggleModal} icon="sign-out-alt">
-          Check Out
-        </CartButton>
-      </View>
-      <CustomModal isVisible={isModalVisible} onClose={toggleModal} />
+      {cartItems.length > 0 && (
+        <View style={styles.footer}>
+          <Text style={styles.cartTotal}>
+            $
+            {(totalPrice + 40).toLocaleString('en-US', {
+              minimumFractionDigits: 2,
+            })}
+          </Text>
+
+          <CartButton onPress={toggleModal} icon="sign-out-alt">
+            Check Out
+          </CartButton>
+        </View>
+      )}
+
+      <CustomModal isVisible={isModalVisible} onClose={closeButtonHandler} />
     </View>
   );
 };

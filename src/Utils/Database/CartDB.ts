@@ -68,16 +68,14 @@ export const getSpecificItem = async (cart: CartModel) => {
   }
 };
 
-type Table = 'UserCartlist';
-
-export const removeTable = async (tableName: Table) => {
-  const query = `DELETE FROM ${tableName}`;
+export const removeCartTable = async () => {
+  const query = `DELETE FROM UserCartlist`;
   try {
     const db = await connectToDatabase();
     await db.executeSql(query);
   } catch (error) {
     console.error(error);
-    throw Error(`Failed to drop table ${tableName}`);
+    throw Error(`Failed to drop table UserCartlist`);
   }
 };
 
