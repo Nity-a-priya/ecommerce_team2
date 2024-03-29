@@ -16,6 +16,10 @@ const CartScreen = () => {
 
   const {cartItems, updateQuantity, clearCartList} = useCartDatabase();
 
+  useEffect(() => {
+    getCartList();
+  });
+
   const getCartList = async () => {
     const cartTotalValue = cartItems.reduce(
       (currentTotal, currentItem) =>
