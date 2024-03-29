@@ -1,11 +1,13 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface Props {
   children: React.ReactNode;
   onPress: () => void;
   customStyles?: {};
   disabled?: boolean;
+  imageName?: any;
 }
 
 const Button: React.FC<Props> = ({
@@ -13,6 +15,7 @@ const Button: React.FC<Props> = ({
   onPress,
   customStyles,
   disabled,
+  imageName,
 }) => {
   const buttonOpacity = disabled ? 0.4 : 1;
   return (
@@ -25,7 +28,15 @@ const Button: React.FC<Props> = ({
       ]}
       onPress={onPress}
       disabled={disabled}>
-      <View>
+      <View style={styles.viewStyle}>
+        {imageName && (
+          <Ionicons
+            style={styles.icon}
+            name={imageName}
+            size={20}
+            color={'white'}
+          />
+        )}
         <Text style={styles.buttonText}>{children}</Text>
       </View>
     </Pressable>
@@ -55,5 +66,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  icon: {
+    marginRight: 6,
+  },
+  viewStyle: {
+    flex: 1,
+    flexDirection: 'row',
+
+    alignItems: 'center',
   },
 });

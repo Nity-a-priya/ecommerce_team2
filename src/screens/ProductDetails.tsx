@@ -54,13 +54,17 @@ const ProductDetails = ({route, navigation}: any) => {
         </View>
 
         {!isProductAdded ? (
-          <CustomButton onPress={cartHandler} customStyles={styles.button}>
+          <CustomButton
+            onPress={cartHandler}
+            customStyles={styles.button}
+            imageName="cart">
             Add to Cart
           </CustomButton>
         ) : (
           <CustomButton
             onPress={gotoCartHandler}
-            customStyles={styles.gotobutton}>
+            customStyles={styles.gotobutton}
+            imageName="cart">
             Go to Cart
           </CustomButton>
         )}
@@ -122,7 +126,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     marginHorizontal: 5,
-    width: 200,
+    width: 180,
     height: 50,
   },
   gotobutton: {
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginHorizontal: 5,
     backgroundColor: 'gray',
-    width: 200,
+    width: 180,
     height: 50,
   },
 });
