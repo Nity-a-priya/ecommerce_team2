@@ -19,7 +19,7 @@ const useWishlist = () => {
 
   useEffect(() => {
     fetchWishlist();
-  }, [wishlist]);
+  }, [isfocused]);
 
   const favouritesHandler = async (itemdata: ProductModel) => {
     const itemInWishlist = wishlist.some(item => item.id === itemdata.id);
