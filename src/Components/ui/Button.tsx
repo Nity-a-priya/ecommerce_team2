@@ -28,15 +28,7 @@ const Button: React.FC<Props> = ({
       ]}
       onPress={onPress}
       disabled={disabled}>
-      <View style={styles.viewStyle}>
-        {imageName && (
-          <Ionicons
-            style={styles.icon}
-            name={imageName}
-            size={20}
-            color={'white'}
-          />
-        )}
+      <View>
         <Text style={styles.buttonText}>{children}</Text>
       </View>
     </Pressable>
