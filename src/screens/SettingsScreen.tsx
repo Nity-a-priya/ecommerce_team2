@@ -1,13 +1,6 @@
 import {useTheme} from '@react-navigation/native';
 import React, {useContext, useState} from 'react';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-} from 'react-native';
+import {StyleSheet, Text, View, useColorScheme} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {NameContext} from '../Utils/asyncStorageContext';

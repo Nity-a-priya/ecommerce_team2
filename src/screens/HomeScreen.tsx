@@ -4,11 +4,14 @@ import HomeGrid from '../Components/HomeList/HomeGrid';
 import ProductModel from '../Model/ProductModel';
 import ProductService from '../Service/ProductService';
 import {NameContext} from '../Utils/asyncStorageContext';
+import MyLazyLoadedList from './MyLazyLoadedList';
+import {QueryClient, QueryClientProvider} from 'react-query';
 
 const HomeScreen = () => {
   const [dataList, setDatalist] = useState<ProductModel[]>([]);
   const {name, getStoreData} = useContext(NameContext);
   const productService = new ProductService();
+  const queryClient = new QueryClient();
 
   function getProductList() {
     productService
@@ -29,10 +32,13 @@ const HomeScreen = () => {
   return (
     <View style={styles.outerScreen}>
       <Text style={styles.text}>Hey {name.name} !!</Text>
-      <HomeGrid dataList={dataList} />
+
+      <QueryClientProvider client={queryClient}>
+        <MyLazyLoadedList />
+      </QueryClientProvider>
     </View>
   );
-};
+}; // <HomeGrid dataList={dataList} />
 export default HomeScreen;
 
 const styles = StyleSheet.create({
