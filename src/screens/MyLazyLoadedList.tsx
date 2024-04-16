@@ -18,57 +18,55 @@ const MyLazyLoadedList: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [selectedMonth, setSelectedMonth] = useState('1');
+  const [cache, setCache] = useState<Record<string, ListItem[][]>>({});
 
-  const cache: Record<string, ListItem[][]> = {};
+  const fetchDataForMonth = async (month: string, currentPage: number) => {
+    setIsLoading(true);
+    try {
+      // Check if data for the specified month and page exists in the cache
+      if (cache[month] && cache[month][currentPage]) {
+        console.log('Data found in cache.');
+        const cachedData = cache[month][currentPage];
 
-  const fetchDataForMonth = useMemo(() => {
-    return async (month: string, currentPage: number) => {
-      setIsLoading(true);
-      try {
-        console.log('||');
-        console.log('||');
-        console.log('||');
+        // Append cached data to the existing data state
+        setData(prevData => [...prevData, ...cachedData]);
+        setIsLoading(false);
+      } else {
+        console.log('Fetching data from API...');
 
-        console.log('month: = ', month, 'currentPage = ', currentPage);
-        if (cache[month] && cache[month][currentPage]) {
-          console.log('DATA GETTING FROM CACHE ..... ');
-          const cachedData = cache[month].reduce(
-            (acc, val) => [...acc, ...val],
-            [],
-          );
-          setData(cachedData);
-          setIsLoading(false);
-        } else {
-          console.log('API GOT CALLED ..... '); // Data not found in cache, fetch from API
-          const response = await fetch(
-            `https://gorest.co.in/public/v2/users?page=${currentPage}&per_page=10&month=${month}`,
-          );
-          const newData: ListItem[] = await response.json();
+        // Fetch new data from the API
+        const response = await fetch(
+          `https://gorest.co.in/public/v2/users?page=${currentPage}&per_page=10&month=${month}`,
+        );
+        const newData: ListItem[] = await response.json();
 
-          // Update cache with fetched data
-          if (!cache[month]) {
-            cache[month] = [];
-          }
-          cache[month][currentPage] = newData;
-
-          // Combine all cached data for the month and update data state
-          const combinedData: ListItem[] = cache[month].reduce(
-            (acc, val) => [...acc, ...val],
-            [],
-          );
-          setData(combinedData);
-          setIsLoading(false);
+        // Update cache with fetched data
+        if (!cache[month]) {
+          cache[month] = [];
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
+
+        // cache[month][currentPage] = newData;
+        setCache(prevCache => ({
+          ...prevCache,
+          [month]: {
+            ...prevCache[month],
+            [currentPage]: newData,
+          },
+        }));
+
+        // Append new data to the existing data state
+        setData(prevData => [...prevData, ...newData]);
         setIsLoading(false);
       }
-    };
-  }, []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchDataForMonth(selectedMonth, page); // Default to 'January' (value '1') for initial fetch
-  }, [fetchDataForMonth, page]);
+  }, [page]);
 
   const handleLoadMore = () => {
     if (!isLoading) {
@@ -102,6 +100,7 @@ const MyLazyLoadedList: React.FC = () => {
         onChange={item => {
           console.log('OnChange Called with = ', item.value);
           setPage(1);
+          setData([]);
           setSelectedMonth(item.value);
         }}
       />
